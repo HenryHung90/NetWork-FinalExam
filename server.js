@@ -18,7 +18,7 @@ NetWork.get('/main/news',(req,res)=>{
     //     console.log(hash);
     // });
     console.log('導引至最新消息')
-    res.render('/main/news')
+    res.render('main/news')
 })
 //--------------------------
 
