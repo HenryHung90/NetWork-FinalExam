@@ -1,6 +1,32 @@
-window.onload = function(){
-    show()
-}
+window.onload = function () {
+  show();
+  var schedulebtn = document.getElementById("schedule");
+  var memberRestbtn = document.getElementById("memberRest");
+  var memberbtn = document.getElementById("member");
+  var aboutUsbtn = document.getElementById("aboutUs");
+  var newsbtn = document.getElementById("news");
+  var logoutbtn = document.getElementById("logout");
+
+  schedulebtn.addEventListener("click", function () {
+    document.location.href = "/main/schedule";
+  });
+  memberRestbtn.addEventListener("click", function () {
+    document.location.href = "/main/memberRest";
+  });
+  memberbtn.addEventListener("click", function () {
+    document.location.href = "/main/member";
+  });
+  aboutUsbtn.addEventListener("click", function () {
+    document.location.href = "/main/aboutUs";
+  });
+  newsbtn.addEventListener("click", function () {
+    document.location.href = "/main/news";
+  });
+  logoutbtn.addEventListener("click", function () {
+    document.location.href = "/index";
+  });
+};
+
 function show() {
   var date = new Date();
   var now = "";

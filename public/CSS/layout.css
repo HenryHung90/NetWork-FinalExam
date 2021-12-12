@@ -15,15 +15,15 @@
     text-align: center;
     font-size: 25px;
     }
-.icon {
+#icon {
     float: left;
     width: 150px;
     height: 100%;
     padding-top: 10px;
-    background-image: url(/img/Gray5.png);
+    background-image: url('/img/Gray5.png');
     background-size: cover;
     }
-.schedule {
+#schedule {
     float: left;
     width: 10%;
     height: 100%;
@@ -31,35 +31,42 @@
     background-color: lightcyan;
 }
 
-.memberRest {
+#memberRest {
     float: left;
     width: 10%;
     height: 100%;
     padding-top: 25px;
     background-color: lightgoldenrodyellow;
 }
-.member {
+#member {
     float: left;
     width: 10%;
     height: 100%;
     padding-top: 25px;
     background-color: lightpink;
 }
-.aboutUs {
+#aboutUs {
     float: left;
     width: 10%;
     height: 100%;
     padding-top: 25px;
     background-color: lightblue;
 }
-.Login {
+#news {
+    float: left;
+    width: 10%;
+    height: 100%;
+    padding-top: 25px;
+    background-color: lightgrey;
+}
+#logout {
     float: right;
     width: 5%;
     height: 100%;
     padding-top: 25px;
     background-color: lightcoral;
 }
-.nowDiv {
+#nowDiv {
     float: left;
     width: 35%;
     height: 100%;
