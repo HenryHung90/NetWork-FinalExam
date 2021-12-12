@@ -63,7 +63,7 @@
     width: 10%;
     height: 100%;
     padding-top: 25px;
-    background-color: lightgray;
+    background-color: lightgrey;
 }
 
 #logout {
@@ -74,7 +74,7 @@
     background-color: lightcoral;
 }
 
-.nowDiv {
+#nowDiv {
     float: left;
     width: 35%;
     height: 100%;
