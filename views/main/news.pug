@@ -1,5 +1,17 @@
 extends ../layout 
 block stylesheet
     link(rel="stylesheet", href="/CSS/news.css")
-block content  
-    .outline 1235124
+    script(src="/JS/news.js") 
+block content
+    #newDetail
+        #newInfo 
+            h1 最新消息
+            #Info 
+        #newLaw 
+            h1 最新法規
+            #Law 
+        #newMovie
+            h1 最新電影
+            #Movie
+    button#submit.btn.btn-light(type='button' style='width: 100px;height:50px;margin-top: 20px;border:1px solid lightblue') 編輯內容
+    
