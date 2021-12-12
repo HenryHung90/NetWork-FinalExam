@@ -1,0 +1,27 @@
+ #bg {
+     background-image: url('/img/index_bg.jpeg');
+     background-size: cover;
+     height: 1080px;
+     opacity: 70%;
+     display: none;
+ }
+#logo{
+    background-image: url('/img/Gray5.png');
+    background-size: cover;
+    width: 150px;
+    height: 80px;
+    text-align: center;
+    margin: 0 auto;
+}
+ #login {
+     width: 700px;
+     height: 500px;
+     border: 2px solid black;
+     border-radius: 25px;
+     background-color: blanchedalmond;
+     position: absolute;
+     top: 15%;
+     left: 32%;
+     opacity: 90%;
+     display: none;
+ }
