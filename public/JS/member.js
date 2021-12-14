@@ -1,3 +1,8 @@
+/*$(document).ready(function() {
+    $("#t1").fadeIn(3000)
+});*/
+
+
 function autoCreate() {
     console.log("123");
     var table = document.createElement("table");
