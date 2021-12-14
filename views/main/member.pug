@@ -2,27 +2,31 @@ extends ../layout
 block stylesheet
     link(rel="stylesheet", href="/CSS/member.css")
     script(src="/JS/member.js")
+    script(src='https://code.jquery.com/jquery-3.6.0.js' integrity='sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=' crossorigin='anonymous')
 
 block content 
     //-input(type="button" value="生成表格" onclick="autoCreate()")
-    div(id="d1")
-    table
-        tr 
-            td 姓名
-            td 員工編號
-            td 固休時間
-        tr 
-            td Joseph 
-            td 1320002  
-            td 2 3
-        tr 
-            td Joseph 
-            td 1320002  
-            td 2 3
-        tr 
-            td Joseph 
-            td 1320002  
-            td 2 3
+    #d1
+        h1 員工名單
+                span(id="btnEdit")
+                    input(type="button", value="編輯" style="background-color: plum")
+        table(id="t1")
+            tr 
+                td 姓名
+                td 員工編號
+                td 固休時間
+            tr 
+                td Joseph 
+                td 1320002  
+                td 2 3
+            tr 
+                td Joseph 
+                td 1320002  
+                td 2 3
+            tr 
+                td Joseph 
+                td 1320002  
+                td 2 3
     
     
     

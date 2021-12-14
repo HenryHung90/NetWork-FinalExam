@@ -1,0 +1,47 @@
+.d1 {
+    position: absolute;
+    left: 5%;
+    top: 10%;
+    width: 90%;
+    height: 900px;
+    border-radius: 50px;
+    background-color: lightblue;
+}
+
+h1 {
+    text-align: center;
+}
+
+#pic1 {
+    position: absolute;
+    left: 30px;
+    top: 100px;
+    width: 350px;
+    border-radius: 50%;
+    border: 1px solid rgb(114, 178, 216);
+}
+
+#text1 {
+    text-align: center;
+    width: 650px;
+    position: absolute;
+    left: 40%;
+    top: 100px;
+}
+
+#pic2 {
+    position: absolute;
+    left: 30px;
+    top: 450px;
+    width: 350px;
+    border-radius: 50%;
+    border: 1px solid rgb(114, 178, 216);
+}
+
+#text2 {
+    text-align: center;
+    width: 650px;
+    position: absolute;
+    left: 40%;
+    top: 450px;
+}
