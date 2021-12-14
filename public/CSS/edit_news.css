@@ -1,0 +1,54 @@
+#newDetail {
+    position: absolute;
+    left: 5%;
+    top: 10%;
+    width: 90%;
+    height: 900px;
+    border-radius: 50px;
+    background-color: lightgrey;
+}
+
+#newInfo {
+    text-align: center;
+    float: left;
+    margin: 25px 25px;
+    width: 31%;
+    height: 800px;
+    border-radius: 50px;
+    background-color: lightgreen;
+    overflow: hidden;
+}
+
+#newLaw {
+    text-align: center;
+    float: left;
+    margin: 25px 15px;
+    width: 31%;
+    height: 800px;
+    border-radius: 50px;
+    background-color: lightgreen;
+    overflow: hidden;
+}
+
+#newMovie {
+    text-align: center;
+    float: left;
+    margin: 25px 15px;
+    width: 31%;
+    height: 800px;
+    border-radius: 50px;
+    background-color: lightgreen;
+    overflow: hidden;
+}
+
+#submit.btn.btn-light {
+    position: absolute;
+    top: 87%;
+    right: 47%;
+}
+
+.news_input{
+    width: 500px;
+    height: 710px;
+    overflow: hidden;
+}

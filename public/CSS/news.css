@@ -6,6 +6,7 @@
     height: 900px;
     border-radius: 50px;
     background-color: lightgrey;
+    display: none;
 }
 #newInfo{
     text-align: center;
@@ -15,6 +16,7 @@
     height: 800px;
     border-radius: 50px;
     background-color: white;
+    display: none;
 }
 #newLaw{
     text-align: center;
@@ -24,6 +26,7 @@
     height: 800px;
     border-radius: 50px;
     background-color: white;
+    display: none;
 }
 #newMovie{
     text-align: center;
@@ -33,9 +36,11 @@
     height: 800px;
     border-radius: 50px;
     background-color: white;
+    display: none;
 }
 #submit.btn.btn-light{
     position: absolute;
     top:87%;
     right: 47%;
+    display: none;
 }

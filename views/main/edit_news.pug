@@ -1,1 +1,20 @@
 extends ../layout
+block stylesheet
+    link(rel="stylesheet", href="/CSS/edit_news.css")
+    script(src="/JS/edit_news.js")
+block content
+    #newDetail
+        #newInfo
+            h1 最新消息
+            #Info
+                textarea#editInfo.news_input(type='text' name='editInfo')
+        #newLaw
+            h1 最新法規
+            #Law
+                textarea#editLaw.news_input(type='text' name='editLaw')
+        #newMovie
+            h1 最新電影
+            #Movie
+                textarea#editMovie.news_input(type='richtext' name='editMovie')
+    button#submit.btn.btn-light(type='button' style='width: 100px;height:50px;margin-top: 20px;border:1px solid lightblue') 編輯完成
+     
