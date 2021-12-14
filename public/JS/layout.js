@@ -7,7 +7,6 @@ window.onload = function() {
     var newsbtn = document.getElementById("news");
     var logoutbtn = document.getElementById("logout");
 
-<<<<<<< HEAD
     schedulebtn.addEventListener("click", function() {
         document.location.href = "/main/schedule";
     });
@@ -39,7 +38,7 @@ function show() {
     now = now + date.getSeconds() + "秒";
     document.getElementById("Time").innerHTML = now;
     setTimeout("show()", 1000);
-=======
+
   //click function
   schedulebtn.addEventListener("click", function () {
     document.location.href = "/main/schedule";
@@ -116,5 +115,4 @@ function show() {
   now = now + date.getSeconds() + "秒";
   document.getElementById("Time").innerHTML = now;
   setTimeout("show()", 1000);
->>>>>>> 510a626fa5adfe51d11562f1b69c3e64ec9fcafd
 }
