@@ -66,6 +66,15 @@ NetWork.get('/main/schedule', (req, res) => {
         res.render('main/schedule')
     })
     //-----------------------------------------------------------------
+NetWork.get('/main/aboutUs', (req, res) => {
+        // const myPassword = document.getElementById("memerAccount").val();
+        // bcrypt.hash(myPassword, saltRounds).then(function (hash) {
+        //     console.log(hash);
+        // });
+        console.log('導引至關於我們')
+        res.render('main/aboutUs')
+    })
+    //-----------------------------------------------------------------
 
 //NetWork.use('/main',NetWorkRouter)
 NetWork.use(express.static('public'))
