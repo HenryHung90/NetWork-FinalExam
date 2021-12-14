@@ -2,6 +2,10 @@
     margin: 0;
     padding: 0;
 }
+body{
+    background-image: url('/img/Layout_bg.jpeg');
+    background-size: cover;
+}
 
 .guideline {
     margin: 0 auto;

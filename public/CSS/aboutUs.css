@@ -1,0 +1,36 @@
+#Teammate{
+    position: absolute;
+    left: 5%;
+    top: 10%;
+    width: 90%;
+    height: 900px;
+    border-radius: 50px;
+    background-color: lightgrey;
+    display: none;
+}
+#HenryHung{
+    text-align: center;
+    float: left;
+    margin:25px 45px;
+    width: 45%;
+    height: 800px;
+    border-radius: 50px;
+    background-color: lightpink;
+    display: none;
+}
+.SelfImg {
+    margin-top: 20px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+}
+#JosephHsu{
+    text-align: center;
+    float: left;
+    margin:25px 25px;
+    width: 45%;
+    height: 800px;
+    border-radius: 50px;
+    background-color: lightskyblue;
+    display: none;
+}

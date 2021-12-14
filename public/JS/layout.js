@@ -69,6 +69,7 @@ window.onload = function () {
   $("#logout").mouseleave(function () {
     $("#logout_text").fadeOut(100,function(){setTimeout($('#logout_icon').fadeIn(100)),100})
   });
+  //catch hover BUG, Need to solve--------
 };
 
 function show() {
