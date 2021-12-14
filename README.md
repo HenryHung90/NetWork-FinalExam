@@ -15,9 +15,9 @@ No.5 Just ask if you don't know how to do it
 # Schedule
 
 
-Architecture: uncomplete
+Architecture: #complete
 
-Appearance simulation:uncomplete
+Appearance simulation: #complete
 
 Data construction:uncomplete
 
