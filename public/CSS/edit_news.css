@@ -16,6 +16,7 @@
     height: 800px;
     border-radius: 50px;
     background-color: lightgreen;
+    overflow: hidden;
 }
 
 #newLaw {
@@ -26,6 +27,7 @@
     height: 800px;
     border-radius: 50px;
     background-color: lightgreen;
+    overflow: hidden;
 }
 
 #newMovie {
@@ -36,10 +38,17 @@
     height: 800px;
     border-radius: 50px;
     background-color: lightgreen;
+    overflow: hidden;
 }
 
 #submit.btn.btn-light {
     position: absolute;
     top: 87%;
     right: 47%;
+}
+
+.news_input{
+    width: 500px;
+    height: 710px;
+    overflow: hidden;
 }
