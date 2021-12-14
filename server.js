@@ -91,31 +91,20 @@ NetWork.get('/main/memberRest', (req, res) => {
 })
 NetWork.get('/main/schedule', (req, res) => {
     if(IsLogin){
-        console.log('導引至排班表')
-        res.render('main/schedule')
-<<<<<<< HEAD
-    })
-    //-----------------------------------------------------------------
+    console.log('導引至排班表')
+    res.render('main/schedule')
+    }
+})
+//-----------------------------------------------------------------
 NetWork.get('/main/aboutUs', (req, res) => {
         // const myPassword = document.getElementById("memerAccount").val();
         // bcrypt.hash(myPassword, saltRounds).then(function (hash) {
         //     console.log(hash);
         // });
-        console.log('導引至關於我們')
-        res.render('main/aboutUs')
-    })
-    //-----------------------------------------------------------------
-
-=======
-    }else res.send('非法闖入')
+    console.log('導引至關於我們')
+    res.render('main/aboutUs')
 })
-NetWork.get("/main/aboutUs", (req, res) => {
-  if (IsLogin) {
-    console.log("導引至關於我們");
-    res.render("main/aboutUs");
-  } else res.send("非法闖入");
-});
->>>>>>> 510a626fa5adfe51d11562f1b69c3e64ec9fcafd
+//-----------------------------------------------------------------
 //NetWork.use('/main',NetWorkRouter)
 
 const host = "127.0.0.1"
