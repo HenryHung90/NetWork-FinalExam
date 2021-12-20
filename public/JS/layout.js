@@ -25,21 +25,8 @@ window.onload = function() {
     logoutbtn.addEventListener("click", function() {
         document.location.href = "/";
     });
-};
 
-function show() {
-    var date = new Date();
-    var now = "";
-    now = date.getFullYear() + "年";
-    now = now + (date.getMonth() + 1) + "月";
-    now = now + date.getDate() + "日";
-    now = now + date.getHours() + "時";
-    now = now + date.getMinutes() + "分";
-    now = now + date.getSeconds() + "秒";
-    document.getElementById("Time").innerHTML = now;
-    setTimeout("show()", 1000);
-
-  //click function
+      //click function
   schedulebtn.addEventListener("click", function () {
     document.location.href = "/main/schedule";
   });
@@ -102,8 +89,7 @@ function show() {
     $("#logout_text").fadeOut(100,function(){setTimeout($('#logout_icon').fadeIn(100)),100})
   });
   //catch hover BUG, Need to solve--------
-};
-
+}
 function show() {
   var date = new Date();
   var now = "";

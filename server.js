@@ -2,6 +2,30 @@
 const express = require("express")
 const NetWork = express()
 
+//引入Mongodb
+const { MongoClient } = require("mongodb");
+const uri = "mongodb+srv://Henry:12345@henrydate.4vfu7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const client = new MongoClient(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+async function run(){
+    try{
+        await client.connect()
+
+        const database = client.db('Network')
+        const collection = database.collection('test')
+
+        const query = { title: "Back to the Future" }
+        const movie = await collection.findOne(query)
+
+        console.log(movie)
+    }catch{
+        await client.close()
+    }
+}
+run().catch(console.dir)
+
 //引入body-parser(用於解析json, row, txt, URL-encoded格式)
 const bodyParser = require("body-parser");
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
