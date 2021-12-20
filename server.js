@@ -117,14 +117,9 @@ NetWork.get('/main/schedule', (req, res) => {
     if(IsLogin){
     console.log('導引至排班表')
     res.render('main/schedule')
-    }
+    }else res.send("非法闖入")
 })
-//-----------------------------------------------------------------
 NetWork.get('/main/aboutUs', (req, res) => {
-        // const myPassword = document.getElementById("memerAccount").val();
-        // bcrypt.hash(myPassword, saltRounds).then(function (hash) {
-        //     console.log(hash);
-        // });
     console.log('導引至關於我們')
     res.render('main/aboutUs')
 })
