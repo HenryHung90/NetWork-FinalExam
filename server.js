@@ -25,7 +25,8 @@ async function run(){
     }
 }
 run().catch(console.dir)
-
+//引入mongoose
+const mongoose =require('mongoose')
 //引入body-parser(用於解析json, row, txt, URL-encoded格式)
 const bodyParser = require("body-parser");
 const urlencodedParser = bodyParser.urlencoded({ extended: false });

@@ -1,8 +1,6 @@
 /*$(document).ready(function() {
     $("#t1").fadeIn(3000)
 });*/
-
-
 function autoCreate() {
     console.log("123");
     var table = document.createElement("table");
@@ -25,3 +23,6 @@ function autoCreate() {
     }
     document.getElementById("d1").appendChild(table);
 }
+let str = "1,2"
+let temp = str.toString().split(",")
+console.log(temp)
