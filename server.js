@@ -3,37 +3,31 @@ const express = require("express")
 const NetWork = express()
 
 //引入Mongodb
-const { MongoClient } = require("mongodb");
-const uri = "mongodb+srv://Henry:12345@henrydate.4vfu7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-const client = new MongoClient(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+const MongoClient = require("mongodb").MongoClient;
+const assert = require("assert")
+
+// Connection URL
+const url =
+  "mongodb+srv://Henry:12345@schedeulemode.4vfu7.mongodb.net/test?retryWrites=true";
+
+// Use connect method to connect to the Server
+MongoClient.connect(url, function (err, client) {
+    const db = client.db("test");
+    assert.equal(null, err);
+    console.log("connect to "+url)
+    db.collection("inventory").insertOne({
+      item: "canvas",
+      qty: 100,
+      tags: ["cotton"],
+      size: { h: 28, w: 35.5, uom: "cm" },
+    });
 });
-async function run(){
-    try{
-        await client.connect()
 
-        const database = client.db('Network')
-        const collection = database.collection('test')
-
-        const query = { title: "Back to the Future" }
-        const movie = await collection.findOne(query)
-
-        console.log(movie)
-    }catch{
-        await client.close()
-    }
-}
-run().catch(console.dir)
-//引入mongoose
-const mongoose =require('mongoose')
 //引入body-parser(用於解析json, row, txt, URL-encoded格式)
 const bodyParser = require("body-parser");
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 //Router
-const NetWorkRouter = require('./routes/NetWorkRouter')
-
-
+//const NetWorkRouter = require('./routes/NetWorkRouter')
 
 //密碼加密----------------
 //是否已登入(用於導引)
