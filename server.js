@@ -4,23 +4,18 @@ const NetWork = express()
 
 //引入Mongodb
 const MongoClient = require("mongodb").MongoClient;
+const Mongoose = require('mongoose')
 const assert = require("assert")
+const Schema = Mongoose.Schema
 
 // Connection URL
 const url =
-  "mongodb+srv://Henry:12345@schedeulemode.4vfu7.mongodb.net/test?retryWrites=true";
+  "mongodb+srv://Henry:12345@schedeulemode.4vfu7.mongodb.net/Network?retryWrites=true";
 
 // Use connect method to connect to the Server
 MongoClient.connect(url, function (err, client) {
-    const db = client.db("test");
-    assert.equal(null, err);
+    assert.equal(null, err)
     console.log("connect to "+url)
-    db.collection("inventory").insertOne({
-      item: "canvas",
-      qty: 100,
-      tags: ["cotton"],
-      size: { h: 28, w: 35.5, uom: "cm" },
-    });
 });
 
 //引入body-parser(用於解析json, row, txt, URL-encoded格式)
@@ -38,7 +33,6 @@ const saltRounds = 10 //整數型態，數值越高越安全
 //暫存密碼 密碼原型:Hungdodo0427
 const storeAccount = "123@g"
 const storePassword = "$2b$10$cH0VWkMiTpTBOiLUu3yFmOUDLQ7o1V2L7SQwJdUy3/eZ6DkMZtSqC";
-
 //雜湊
 // bcrypt.hash(req.body.Password, saltRounds).then(function (hash) {
 //   console.log("hash=" + hash);
@@ -54,28 +48,38 @@ NetWork.use(express.static("public"))
 NetWork.use(express.json())
 NetWork.set("view engine", "pug")
 NetWork.get('/', (req, res) => {
-    console.log('首頁');
-    res.render('index');
+    if(!IsLogin){
+        console.log("首頁");
+        res.render("index");
+    }else{
+        console.log("導引至最新消息")
+        res.render('main/news')
+    }
+    
 });
 //登入系統檢查-----------------------------------------------------------
 NetWork.post("/main/news", urlencodedParser, (req, res) => {
     // console.log(req.body.Account);
     // console.log(req.body.Password);
     //帳號檢查
-    var IsAct = false;
-    if (req.body.Account == storeAccount) IsAct = true;
+    let IptAccount = req.body.Account
+    let IptPassword = req.body.Password
 
-    //密碼檢查
-    var IsPass = bcrypt.compareSync(req.body.Password, storePassword);
-
-    //結果審查
-    console.log("PassResult:" + IsPass);
-    console.log("ActResult:" + IsAct);
-    if (IsPass && IsAct) {
-        IsLogin = true
-        console.log('導引至最新消息')
-        res.render("main/news")
-    } else res.send("帳號或密碼錯誤")
+    MongoClient.connect(url,function(err,Client){
+      const dbAdmin = Client.db("Network").collection("Admin");
+      dbAdmin.find({ Account: IptAccount , Key:IptPassword}).toArray(function (err, doc) {
+        if (doc[0] != undefined) {
+          AccessAccount = true;
+          console.log("FOUND");
+          console.log(doc[0]);
+          IsLogin = true;
+          console.log("導引至最新消息");
+          res.render("main/news");
+        } else {
+          console.log("NO FOUND")
+        }
+      });
+    })
 });
 //網頁導向-----------------------------------------------------------
 NetWork.get('/main/news',(req,res)=>{
