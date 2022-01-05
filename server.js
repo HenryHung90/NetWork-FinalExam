@@ -4,7 +4,6 @@ const NetWork = express()
 
 //引入Mongodb
 const MongoClient = require("mongodb").MongoClient;
-const Mongoose = require('mongoose')
 const assert = require("assert")
 
 // Connection URL
@@ -26,18 +25,16 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false });
 //密碼加密----------------
 //是否已登入(用於導引)
 var IsLogin = false
-
 const bcrypt = require('bcrypt')
 const saltRounds = 10 //整數型態，數值越高越安全
 //暫存密碼 密碼原型:Hungdodo0427
-const storeAccount = "123@g"
-const storePassword = "$2b$10$cH0VWkMiTpTBOiLUu3yFmOUDLQ7o1V2L7SQwJdUy3/eZ6DkMZtSqC";
+//const storeAccount = "123@g"
+//const storePassword = "$2b$10$cH0VWkMiTpTBOiLUu3yFmOUDLQ7o1V2L7SQwJdUy3/eZ6DkMZtSqC";
 //雜湊
 // bcrypt.hash(req.body.Password, saltRounds).then(function (hash) {
 //   console.log("hash=" + hash);
 //   storePassword = hash;
 // });
-
 //比對
 // bcrypt.compare(myPassword, myHash).then(function (res) {
 //     console.log(res); // true
@@ -58,25 +55,22 @@ NetWork.get('/', (req, res) => {
 });
 //登入系統檢查-----------------------------------------------------------
 NetWork.post("/main/news", urlencodedParser, (req, res) => {
-    // console.log(req.body.Account);
-    // console.log(req.body.Password);
     //帳號檢查
     let IptAccount = req.body.Account
     let IptPassword = req.body.Password
-
+    // bcrypt.hash(req.body.Password, saltRounds).then(function (hash) {
+    //     console.log("hash=" + hash)
+    //     IptPassword = hash
+    // });
     MongoClient.connect(url,function(err,Client){
       const dbAdmin = Client.db("Network").collection("Admin");
-      dbAdmin.find({ Account: IptAccount , Key:IptPassword}).toArray(function (err, doc) {
-        if (doc[0] != undefined) {
-          AccessAccount = true;
-          console.log("FOUND");
-          console.log(doc[0]);
-          IsLogin = true;
-          console.log("導引至最新消息");
-          res.render("main/news");
-        } else {
-          console.log("NO FOUND")
-        }
+      dbAdmin.find({ Account:IptAccount}).toArray(function (err, doc) {
+        if(err)throw err
+        bcrypt.compare(IptPassword, doc[0].Key).then(function (gate) {
+            if(gate) res.render("main/news")
+            else res.send("帳號或密碼錯誤")
+        });
+        
       });
     })
 });

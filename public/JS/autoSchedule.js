@@ -6,7 +6,10 @@
 // 6. 若有無人可上班日期顯示紅色
 // 7. 若有人數不夠日期顯示黃色
 //window.ready = function(){
+
+
 //自動排班系統
+
 //每日應上班人數------------------------
 //副理
 const Normal_Manager = 1
@@ -64,35 +67,57 @@ var Opt = {
 //FlexiableDay 請假日期(int)
 //WorkDay 工作日期+班別: 格式[1,1](日期int,班別int) 班別:1早 2晚 3早+晚
 //------------------------
-const Manager = {
-  Job: 1,
-  ID: [100,101],
-  Name: ["Jay","Jason"],
-  FixedDay:["Sat,Wed","Tues,Thur"],
-  FlexiableDay:['',''],
-  WorkDay:["",""]
+var Manager = {
+  // Job: 1,
+  // ID: [100,101],
+  // Name: ["Jay","Jason"],
+  // FixedDay:["Sat,Wed","Tues,Thur"],
+  // FlexiableDay:['',''],
+  // WorkDay:["",""]
 }
-const FullTime ={
-  Job:2,
-  ID:[200,201,202,203],
-  Name:["Doris","Jerry","Allen","Leo"],
-  FixedDay:["Fri,Sat","Sun,Wed","Tues,Thur","Fri,Sun"],
-  FlexiableDay:['','','',''],
-  WorkDay:["","","",""]
+var FullTime ={
+  // Job:2,
+  // ID:[200,201,202,203],
+  // Name:["Doris","Jerry","Allen","Leo"],
+  // FixedDay:["Fri,Sat","Sun,Wed","Tues,Thur","Fri,Sun"],
+  // FlexiableDay:['','','',''],
+  // WorkDay:["","","",""]
 }
-const PartTime = {
-  Job:3,
-  ID:[300,301,302,303,304,305],
-  Name:["Henry","Herry","Bolly","Queenie","Kim","Ruby"],
-  FixedDay:["Fri,Sat,Sun","Fri,Sat","Mon,Sat","Tues,Sun","Wed,Thur","Fri,Sat,Sun"],
-  FlexiableDay:['','','','','',''],
-  WorkDay:["","","","","",""]
+var PartTime = {
+  // Job:3,
+  // ID:[300,301,302,303,304,305],
+  // Name:["Henry","Herry","Bolly","Queenie","Kim","Ruby"],
+  // FixedDay:["Fri,Sat,Sun","Fri,Sat","Mon,Sat","Tues,Sun","Wed,Thur","Fri,Sat,Sun"],
+  // FlexiableDay:['','','','','',''],
+  // WorkDay:["","","","","",""]
 }
+//資料庫連線---------------------------
+const MongoClient = require("mongodb").MongoClient;
+const assert = require("assert");
 
+// Connection URL
+const url =
+  "mongodb+srv://Henry:12345@schedeulemode.4vfu7.mongodb.net/Network?retryWrites=true";
 
+// Use connect method to connect to the Server
+MongoClient.connect(url, function (err, client) {
+  //Main Function
+  const dbMember = client.db('Network').collection('Member')
+
+  dbMember.find({}).toArray(function(err,result){
+    if(err)throw err
+    // console.log(result[0])
+    // console.log(result[1])
+    // console.log(result[2])
+    Manager = JSON.parse(JSON.stringify(result[0]));
+    FullTime = JSON.parse(JSON.stringify(result[1]));
+    PartTime = JSON.parse(JSON.stringify(result[2]));
+    AutoSchedule()
+  })
+});
 //-------------------------------------------
 //Main Function
-AutoSchedule()
+
 function AutoSchedule(){
   //let IsWorking = true
   //$('#block_msg').fadeIn()
@@ -115,6 +140,7 @@ function AutoSchedule(){
   }
   //確認是否排滿
   IsFull()
+
   //Debug區域-----------
   // for (let i = 0; i < Manager_num; i++) {
   //   console.log(Manager.Name[i] + " 上班:" + Manager.WorkDay[i])
