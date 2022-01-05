@@ -69,7 +69,7 @@ const Manager = {
   ID: [100,101],
   Name: ["Jay","Jason"],
   FixedDay:["Sat,Wed","Tues,Thur"],
-  FlexiableDay:['6,7,8','6,7,8'],
+  FlexiableDay:['',''],
   WorkDay:["",""]
 }
 const FullTime ={
@@ -77,7 +77,7 @@ const FullTime ={
   ID:[200,201,202,203],
   Name:["Doris","Jerry","Allen","Leo"],
   FixedDay:["Fri,Sat","Sun,Wed","Tues,Thur","Fri,Sun"],
-  FlexiableDay:['5,6,1','8,7,1','10,15,17','10,11'],
+  FlexiableDay:['','','',''],
   WorkDay:["","","",""]
 }
 const PartTime = {
@@ -85,7 +85,7 @@ const PartTime = {
   ID:[300,301,302,303,304,305],
   Name:["Henry","Herry","Bolly","Queenie","Kim","Ruby"],
   FixedDay:["Fri,Sat,Sun","Fri,Sat","Mon,Sat","Tues,Sun","Wed,Thur","Fri,Sat,Sun"],
-  FlexiableDay:['1','2','2','2','2','2'],
+  FlexiableDay:['','','','','',''],
   WorkDay:["","","","","",""]
 }
 
@@ -440,57 +440,68 @@ function PushSchedule(Day,Name,Job){
 }
 //--------------------------------------------
 
-//是否排滿--------------------------------------
+//是否排滿"Check"--------------------------------------
 function IsFull(){
-  let ManagerTemp = []
-  let FullTimeTemp = []
-  let PartTimeTemp = []
-  for(let i = 0;i<ManagerhelfError.length;i++){
-    if(IsWeekend(ManagerhelfError[i])){
-      if(ManagerhelfError[i] == ManagerhelfError[i+Week_Manager-1]){
-        ManagerError.push(ManagerhelfError[i])
-        ManagerTemp.push(i)
-      }
-    }else{
-      if(ManagerhelfError[i] == ManagerhelfError[i+Normal_Manager-1]){
-        ManagerError.push(ManagerhelfError[i])
-        ManagerTemp.push(i)
-      }
-    }
-  }
-  for(let i = 0;i<FullTimehelfError.length;i++){
-    if(IsWeekend(FullTimehelfError[i])){
-      if(FullTimehelfError[i] == FullTimehelfError[i+Week_Full-1]){
-        FullTimeError.push(FullTimehelfError[i])
-        //FullTimehelfError.splice(i,1)
-      }
-    }else{
-      if(FullTimehelfError[i] == FullTimehelfError[i+Normal_Full-1]){
-        FullTimeError.push(FullTimehelfError[i])
-        //FullTimehelfError.splice(i,1)
-      }
-    }
-  }
-  for(let i = 0;i<PartTimehelfError.length;i++){
-    if(IsWeekend(PartTimehelfError[i])){
-      if(PartTimehelfError[i] == PartTimehelfError[i+Week_Part-1]){
-        PartTimeError.push(PartTimehelfError[i])
-        //PartTimehelfError.splice(i,1)
-      }
-    }else{
-      if(PartTimehelfError[i] == PartTimehelfError[i+Normal_Part-1]){
-        PartTimeError.push(PartTimehelfError[i])
-        //PartTimehelfError.splice(i,1)
-      }
-    }
-  }
+  //計算刪除數量 校正回歸
+  let ManagerCount = 0
+  let FullTimeCount = 0
+  let PartTimeCount = 0
+  //登記原始長度(Splice會減少長度，造成無法讀完全部)
+  let ManagerLength = ManagerhelfError.length
+  let FullTimeLength = FullTimehelfError.length
+  let PartTimeLength = PartTimehelfError.length
 
-  //ManagerhelfError = [...new Set(ManagerhelfError)]
-  //FullTimehelfError = [...new Set(FullTimehelfError)]
-  //PartTimehelfError = [...new Set(PartTimehelfError)]
+  for(let i = 0;i<ManagerLength;i++){
+    if(IsWeekend(ManagerhelfError[i-ManagerCount])){
+      if(ManagerhelfError[i-ManagerCount] == ManagerhelfError[i+Week_Manager-1-ManagerCount]){
+        ManagerError.push(ManagerhelfError[i-ManagerCount])
+        ManagerhelfError.splice(i-ManagerCount,Week_Manager)
+        ManagerCount += Week_Manager
+      }
+    }else{
+      if(ManagerhelfError[i-ManagerCount] == ManagerhelfError[i+Normal_Manager-1-ManagerCount]){
+        ManagerError.push(ManagerhelfError[i-ManagerCount])
+        ManagerhelfError.splice(i-ManagerCount,Normal_Manager)
+        ManagerCount += Normal_Manager
+      }
+    }
+  }
+  for(let i = 0;i<FullTimeLength;i++){
+    if(IsWeekend(FullTimehelfError[i-FullTimeCount])){
+      if(FullTimehelfError[i-FullTimeCount] == FullTimehelfError[i+Week_Full-1-FullTimeCount]){
+        FullTimeError.push(FullTimehelfError[i-FullTimeCount])
+        FullTimehelfError.splice(i-FullTimeCount,Week_Full)
+        FullTimeCount += Week_Full
+      }
+    }else{
+      if(FullTimehelfError[i-FullTimeCount] == FullTimehelfError[i+Normal_Full-1-FullTimeCount]){
+        FullTimeError.push(FullTimehelfError[i-FullTimeCount])
+        FullTimehelfError.splice(i-FullTimeCount,Normal_Full)
+        FullTimeCount += Normal_Full
+      }
+    }
+  }
+  for(let i = 0;i<PartTimeLength;i++){
+    if(IsWeekend(PartTimehelfError[i-PartTimeCount])){
+      if(PartTimehelfError[i-PartTimeCount] == PartTimehelfError[i+Week_Part-1-PartTimeCount]){
+        PartTimeError.push(PartTimehelfError[i-PartTimeCount])
+        PartTimehelfError.splice(i-PartTimeCount,Week_Part)
+        PartTimeCount += Week_Part
+      }
+    }else{
+      if(PartTimehelfError[i-PartTimeCount] == PartTimehelfError[i+Normal_Part-1-PartTimeCount]){
+        PartTimeError.push(PartTimehelfError[i-PartTimeCount])
+        PartTimehelfError.splice(i-PartTimeCount,Normal_Part)
+        PartTimeCount+= Normal_Part
+      }
+    }
+  }
+  ManagerhelfError = [...new Set(ManagerhelfError)]
+  FullTimehelfError = [...new Set(FullTimehelfError)]
+  PartTimehelfError = [...new Set(PartTimehelfError)]
 }
 
-//整理全請日and人不足日----------------------------
+//輸出請假位置"Check"--------------------------------
 function DayErrorCatch(Day,Job){
   switch(Job){
     case 1:
@@ -515,6 +526,7 @@ function IsSchedule(PersonWorkDay,Day){
   return false
 }
 //--------------------------------------------
+//liitle function
 function IsWeekend(Day){
   if(Calender[Day] == 'Sat' || Calender[Day] == 'Sun') return true
   return false
