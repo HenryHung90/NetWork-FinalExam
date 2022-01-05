@@ -113,8 +113,13 @@ NetWork.get('/main/schedule', (req, res) => {
     } else res.send("非法闖入")
 })
 NetWork.get('/main/aboutUs', (req, res) => {
-        console.log('導引至關於我們')
-        res.render('main/aboutUs')
+    console.log('導引至關於我們')
+    res.render('main/aboutUs')
+})
+NetWork.get('/Logout', (req, res) => {
+        IsLogin = false
+        console.log('已登出')
+        res.render('index')
     })
     //-----------------------------------------------------------------
     //NetWork.use('/main',NetWorkRouter)

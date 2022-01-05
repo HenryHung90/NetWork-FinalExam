@@ -6,26 +6,6 @@ window.onload = function() {
     var aboutUsbtn = document.getElementById("aboutUs");
     var newsbtn = document.getElementById("news");
     var logoutbtn = document.getElementById("logout");
-
-    schedulebtn.addEventListener("click", function() {
-        document.location.href = "/main/schedule";
-    });
-    memberRestbtn.addEventListener("click", function() {
-        document.location.href = "/main/memberRest";
-    });
-    memberbtn.addEventListener("click", function() {
-        document.location.href = "/main/member";
-    });
-    aboutUsbtn.addEventListener("click", function() {
-        document.location.href = "/main/aboutUs";
-    });
-    newsbtn.addEventListener("click", function() {
-        document.location.href = "/main/news";
-    });
-    logoutbtn.addEventListener("click", function() {
-        document.location.href = "/";
-    });
-
     //click function
     schedulebtn.addEventListener("click", function() {
         document.location.href = "/main/schedule";
@@ -43,7 +23,7 @@ window.onload = function() {
         document.location.href = "/main/news";
     });
     logoutbtn.addEventListener("click", function() {
-        document.location.href = "/index";
+        document.location.href = "/Logout";
     });
 
     //hover function
