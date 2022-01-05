@@ -60,12 +60,12 @@ var Opt = {
 }
 //測資
 //------------------------
-//Job 職位: 1經理 2正職 3兼職(int)
-//ID 員工編號(int)
+//Job 職位: 1經理 2正職 3兼職(int32)
+//ID 員工編號(string)
 //Name 員工姓名(string)
 //FixedDay 固定休假(string)
-//FlexiableDay 請假日期(int)
-//WorkDay 工作日期+班別: 格式[1,1](日期int,班別int) 班別:1早 2晚 3早+晚
+//FlexiableDay 請假日期(string)
+//WorkDay 工作日期(string)
 //------------------------
 var Manager = {
   // Job: 1,
@@ -93,7 +93,6 @@ var PartTime = {
 }
 //資料庫連線---------------------------
 const MongoClient = require("mongodb").MongoClient;
-const assert = require("assert");
 
 // Connection URL
 const url =
@@ -103,12 +102,8 @@ const url =
 MongoClient.connect(url, function (err, client) {
   //Main Function
   const dbMember = client.db('Network').collection('Member')
-
   dbMember.find({}).toArray(function(err,result){
     if(err)throw err
-    // console.log(result[0])
-    // console.log(result[1])
-    // console.log(result[2])
     Manager = JSON.parse(JSON.stringify(result[0]));
     FullTime = JSON.parse(JSON.stringify(result[1]));
     PartTime = JSON.parse(JSON.stringify(result[2]));
@@ -117,7 +112,6 @@ MongoClient.connect(url, function (err, client) {
 });
 //-------------------------------------------
 //Main Function
-
 function AutoSchedule(){
   //let IsWorking = true
   //$('#block_msg').fadeIn()

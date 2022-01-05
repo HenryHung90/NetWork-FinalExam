@@ -67,10 +67,12 @@ NetWork.post("/main/news", urlencodedParser, (req, res) => {
       dbAdmin.find({ Account:IptAccount}).toArray(function (err, doc) {
         if(err)throw err
         bcrypt.compare(IptPassword, doc[0].Key).then(function (gate) {
-            if(gate) res.render("main/news")
+            if(gate){
+                res.render("main/news")
+                IsLogin = true
+            }
             else res.send("帳號或密碼錯誤")
         });
-        
       });
     })
 });
