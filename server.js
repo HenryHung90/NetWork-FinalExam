@@ -6,7 +6,6 @@ const NetWork = express()
 const MongoClient = require("mongodb").MongoClient;
 const Mongoose = require('mongoose')
 const assert = require("assert")
-const Schema = Mongoose.Schema
 
 // Connection URL
 const url =
