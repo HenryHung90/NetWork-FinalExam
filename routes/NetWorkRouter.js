@@ -42,4 +42,6 @@ NetWork.get('/aboutUs', (req, res) => {
     console.log('導引至關於我們')
     res.render('main/aboutUs')
 })
+
+
 module.exports = router
