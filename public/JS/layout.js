@@ -11,7 +11,7 @@ window.onload = function() {
 
     //click function
     schedulebtn.addEventListener("click", function() {
-        document.location.href = "/main/calendar/schedule";
+        document.location.href = "/main/schedule";
     });
     memberRestbtn.addEventListener("click", function() {
         document.location.href = "/main/memberRest";

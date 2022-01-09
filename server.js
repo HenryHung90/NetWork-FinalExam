@@ -110,10 +110,10 @@ NetWork.get('/main/memberRest', (req, res) => {
         res.render("main/memberRest");
     } else res.send("非法闖入");
 })
-NetWork.get('/main/calendar/schedule', (req, res) => {
+NetWork.get('/main/schedule', (req, res) => {
     if (IsLogin) {
         console.log('導引至排班表')
-        res.render('main/calendar/schedule')
+        res.render('main/schedule')
     } else res.send("非法闖入")
 })
 NetWork.get('/main/aboutUs', (req, res) => {
