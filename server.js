@@ -121,8 +121,13 @@ NetWork.get('/main/aboutUs', (req, res) => {
     res.render('main/aboutUs')
 })
 
-//-----------------------------------------------------------------
-//NetWork.use('/main',NetWorkRouter)
+NetWork.get('/Logout', (req, res) => {
+        IsLogin = false
+        console.log('已登出')
+        res.render('index')
+    })
+    //-----------------------------------------------------------------
+    //NetWork.use('/main',NetWorkRouter)
 
 const host = "127.0.0.1"
 const port = 3000

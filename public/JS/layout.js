@@ -6,9 +6,6 @@ window.onload = function() {
     var aboutUsbtn = document.getElementById("aboutUs");
     var newsbtn = document.getElementById("news");
     var logoutbtn = document.getElementById("logout");
-
-
-
     //click function
     schedulebtn.addEventListener("click", function() {
         document.location.href = "/main/schedule";
@@ -26,7 +23,7 @@ window.onload = function() {
         document.location.href = "/main/news";
     });
     logoutbtn.addEventListener("click", function() {
-        document.location.href = "/";
+        document.location.href = "/Logout";
     });
 
     //hover function

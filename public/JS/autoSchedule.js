@@ -5,7 +5,6 @@
 // 5. 人員遇排休、故休跳過
 // 6. 若有無人可上班日期顯示紅色
 // 7. 若有人數不夠日期顯示黃色
-//window.ready = function(){
 
 
 //自動排班系統
@@ -51,8 +50,9 @@ var PartTimeError = []
 var ManagerhelfError = []
 var FullTimehelfError = []
 var PartTimehelfError = []
-    //輸出班表
+    //輸出班表框架
 var Opt = {
+        0: "2022-1",
         1: [],
         2: [],
         3: [],
@@ -129,6 +129,8 @@ const url =
 MongoClient.connect(url, function(err, client) {
     //Main Function
     const dbMember = client.db('Network').collection('Member')
+    const dbSchedule = client.db('Network').collection('Schedule')
+
     dbMember.find({}).toArray(function(err, result) {
         if (err) throw err
         Manager = JSON.parse(JSON.stringify(result[0]));
@@ -136,7 +138,13 @@ MongoClient.connect(url, function(err, client) {
         PartTime = JSON.parse(JSON.stringify(result[2]));
         AutoSchedule()
     })
+
+    dbSchedule.insertOne(Opt, function(err, res) {
+        if (err) throw err
+        console.log("新增成功!!")
+    })
 });
+
 //-------------------------------------------
 //Main Function
 function AutoSchedule() {
@@ -166,6 +174,14 @@ function AutoSchedule() {
     //確認是否排滿
     IsFull()
 
+    //輸出班表塞入人手不足以及全請日
+    Opt.ManagerError = ManagerError
+    Opt.FullTimeError = FullTimeError
+    Opt.PartTimeError = PartTimeError
+    Opt.ManagerhelfError = ManagerhelfError
+    Opt.FullTimehelfError = FullTimehelfError
+    Opt.PartTimehelfError = PartTimehelfError
+
     //Debug區域-----------
     // for (let i = 0; i < Manager_num; i++) {
     //   console.log(Manager.Name[i] + " 上班:" + Manager.WorkDay[i])
@@ -187,7 +203,7 @@ function AutoSchedule() {
     console.log("FullTime全請日:" + FullTimeError)
     console.log("PartTime全請日:" + PartTimeError)
 
-    for (let i = 1; i <= Object.keys(Opt).length; i++) {
+    for (let i = 1; i <= Object.keys(Opt).length - 8; i++) {
         console.log(i + "號:" + Opt[i])
     }
     //-------------------
