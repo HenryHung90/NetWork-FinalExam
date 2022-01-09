@@ -3,13 +3,11 @@ var router = express.Router();
 var memberModel = require('../Tool/memberModel.js');
 
 router.post('/addMember', function(req, res) {
-    console.log(req.body.IDnum);
     var newMember = new memberModel({
         IDnum: req.body.IDnum,
         Name: req.body.Name,
         Rest: req.body.Rest,
     });
-
     newMember.save(function(err, data) {
         if (err) {
             res.json({

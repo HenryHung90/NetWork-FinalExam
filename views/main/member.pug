@@ -8,11 +8,6 @@ block stylesheet
     script(src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js")
     script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js")
 block content 
-    //-input(type="button" value="生成表格" onclick="autoCreate()")
-    //- #d1
-    //-     h1 員工名單
-    //-         span(id="btnEdit")
-    //- input(type="button", value="編輯" class="btn btn-outline-danger" id="btnEdit")
     .container.border.bg-light
         .row
             .col-sm 
@@ -33,7 +28,7 @@ block content
                     input(type="text" class="form-control" id="Rest" name="Rest" placeholder="輸入劃休")
                 .row.m-3.justify-content-center
                     .col-sm-1
-                        input(type="button" class="btn btn-outline-success" value="確認" onclick="addMember()")
+                        input(type="button" class="btn btn-outline-success" value="新增員工" onclick="addMember()")
         
     
     

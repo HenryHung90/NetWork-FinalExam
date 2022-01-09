@@ -38,17 +38,13 @@ function newMember(data) {
     var status = (data.status) ? "checked" : "";
     var content =
         `<div class="input-group mb-3" id="${data.ID[i]}">
-            <div class="input-group-prepend">
-                <div class="input-group-text">
-                    <input type="checkbox" class="myCheck" onclick="checkStatus('${data.ID[i]}', this)">
-                </div>
-            </div>
-            <input type="text" class="form-control col-sm-3" id="title${data._id}" value="${data.title}" readonly>
-            <input type="text" class="form-control col-sm-9" id="msg${data._id}" value="${data.msg}" readonly>
+            <input type="text" class="form-control col-sm-3" id="IDNum${data.ID[i]}" Name="${data.IDNum}" readonly>
+            <input type="text" class="form-control col-sm-9" id="Name${data.ID[i]}" Name="${data.Name}" readonly>
+            <input type="text" class="form-control col-sm-9" id="Rest${data.ID[i]}" Name="${data.Rest}" readonly>
             <div class="input-group-append" id="button-addon4">
-                <button class="btn btn-outline-secondary" type="button" id="btnEdit${data._id}" onclick="editList('${data._id}')">修改</button>
-                <button class="btn btn-outline-secondary d-none" type="button" id="btnUpdate${data._id}" onclick="updateList('${data._id}')">更新</button>
-                <button class="btn btn-outline-secondary" type="button" id="btnRemove${data._id}" onclick="removeList('${data._id}')">刪除</button>
+                <button class="btn btn-outline-secondary" type="button" id="btnEdit${data.ID[i]}" onclick="editList('${data.ID[i]}')">修改</button>
+                <button class="btn btn-outline-secondary d-none" type="button" id="btnUpdate${data.ID[i]}" onclick="updateList('${data.ID[i]}')">更新</button>
+                <button class="btn btn-outline-secondary" type="button" id="btnRemove${data.ID[i]}" onclick="removeList('${data.ID[i]}')">刪除</button>
                 
             </div>
         </div>`
@@ -70,9 +66,9 @@ function updateMember(id) {
     var msg = $("#msg" + id).val();
     var API = "http://127.0.0.1:3000/memberAPI/updateMember";
     var data = {
-        "id": id,
-        "title": title,
-        "msg": msg,
+        "IDnum": IDnum,
+        "Name": Name,
+        "Rest": Rest,
     };
     $.post(API, data, function(res) {
         console.log(res);
