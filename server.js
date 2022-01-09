@@ -68,9 +68,11 @@ NetWork.post("/main/news", urlencodedParser, (req, res) => {
             if (err) throw err
             bcrypt.compare(IptPassword, doc[0].Key).then(function(gate) {
                 if (gate) {
-                    res.render("main/news")
+                    res.redirect("news")
                     IsLogin = true
-                } else res.send("帳號或密碼錯誤")
+                } else {
+                    res.redirect('../')
+                }
             });
         });
     })
