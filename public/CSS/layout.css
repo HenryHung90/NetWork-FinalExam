@@ -2,7 +2,8 @@
     margin: 0;
     padding: 0;
 }
-body{
+
+body {
     background-image: url('/img/Layout_bg.jpeg');
     background-size: cover;
 }
@@ -36,6 +37,7 @@ body{
     height: 100%;
     padding-top: 25px;
     background-color: lightcyan;
+    cursor: pointer;
 }
 
 #memberRest {
@@ -44,6 +46,7 @@ body{
     height: 100%;
     padding-top: 25px;
     background-color: lightgoldenrodyellow;
+    cursor: pointer;
 }
 
 #member {
@@ -52,6 +55,7 @@ body{
     height: 100%;
     padding-top: 25px;
     background-color: lightpink;
+    cursor: pointer;
 }
 
 #aboutUs {
@@ -60,6 +64,7 @@ body{
     height: 100%;
     padding-top: 25px;
     background-color: lightblue;
+    cursor: pointer;
 }
 
 #news {
@@ -68,6 +73,7 @@ body{
     height: 100%;
     padding-top: 25px;
     background-color: lightgrey;
+    cursor: pointer;
 }
 
 #logout {
@@ -76,6 +82,7 @@ body{
     height: 100%;
     padding-top: 25px;
     background-color: lightcoral;
+    cursor: pointer;
 }
 
 #nowDiv {

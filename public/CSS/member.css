@@ -1,13 +1,14 @@
-table,
+/* table,
 tr,
-td {
+td,
+th {
     width: 700px;
-    margin-top: 20px;
-    margin-left: 20%;
-    align-items: center;
-    text-align: center;
-    padding: 10px;
-}
+    margin: 20px 28% 0 28%;
+    text-align: center; 
+
+padding: 10px;
+
+}*/
 
 h1 {
     text-align: center;
@@ -24,7 +25,79 @@ h1 {
 }
 
 #btnEdit {
-    background-color: plum;
+    width: 35%;
     position: absolute;
     right: 10%;
+}
+
+
+/* #t1,
+#t2,
+#t3 {
+    border: 1px solid black;
+} */
+
+table {
+    text-align: center;
+    border-collapse: collapse;
+    border: 1px solid #cdcdcd;
+    font: normal 12px arial;
+    width: 50%;
+    margin-left: 28%;
+    font-size: 20px;
+}
+
+table thead tr th,
+table tbody tr td {
+    border: 1px solid black;
+    padding: 8px;
+}
+
+@media only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px) {
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+        display: block;
+    }
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+    tr,
+    #t3 {
+        border-bottom: 1px solid #000000;
+    }
+    td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50% !important;
+        text-align: left !important;
+    }
+    td:before {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        font-weight: bold;
+    }
+    td:nth-of-type(1):before {
+        content: "姓名";
+        color: black;
+    }
+    td:nth-of-type(2):before {
+        content: "員編";
+        color: #0e9893;
+    }
+    td:nth-of-type(3):before {
+        content: "固休";
+        color: #3818aa;
+    }
 }

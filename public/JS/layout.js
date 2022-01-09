@@ -7,8 +7,11 @@ window.onload = function() {
     var newsbtn = document.getElementById("news");
     var logoutbtn = document.getElementById("logout");
 
+
+
+    //click function
     schedulebtn.addEventListener("click", function() {
-        document.location.href = "/main/schedule";
+        document.location.href = "/main/calendar/schedule";
     });
     memberRestbtn.addEventListener("click", function() {
         document.location.href = "/main/memberRest";
@@ -24,26 +27,6 @@ window.onload = function() {
     });
     logoutbtn.addEventListener("click", function() {
         document.location.href = "/";
-    });
-
-    //click function
-    schedulebtn.addEventListener("click", function() {
-        document.location.href = "/main/schedule";
-    });
-    memberRestbtn.addEventListener("click", function() {
-        document.location.href = "/main/memberRest";
-    });
-    memberbtn.addEventListener("click", function() {
-        document.location.href = "/main/member";
-    });
-    aboutUsbtn.addEventListener("click", function() {
-        document.location.href = "/main/aboutUs";
-    });
-    newsbtn.addEventListener("click", function() {
-        document.location.href = "/main/news";
-    });
-    logoutbtn.addEventListener("click", function() {
-        document.location.href = "/index";
     });
 
     //hover function

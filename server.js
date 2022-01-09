@@ -2,6 +2,9 @@
 const express = require("express")
 const NetWork = express()
 
+//設定網頁分頁路由
+const memberAPI = require('./routes/memberAPI')
+
 //引入Mongodb
 const MongoClient = require("mongodb").MongoClient;
 const assert = require("assert")
@@ -40,6 +43,7 @@ const saltRounds = 10 //整數型態，數值越高越安全
     //     console.log(res); // true
     // });
     //-----------------------
+NetWork.use('/memberAPI', memberAPI)
 NetWork.use(express.static("public"))
 NetWork.use(express.json())
 NetWork.set("view engine", "pug")
@@ -106,18 +110,19 @@ NetWork.get('/main/memberRest', (req, res) => {
         res.render("main/memberRest");
     } else res.send("非法闖入");
 })
-NetWork.get('/main/schedule', (req, res) => {
+NetWork.get('/main/calendar/schedule', (req, res) => {
     if (IsLogin) {
         console.log('導引至排班表')
-        res.render('main/schedule')
+        res.render('main/calendar/schedule')
     } else res.send("非法闖入")
 })
 NetWork.get('/main/aboutUs', (req, res) => {
-        console.log('導引至關於我們')
-        res.render('main/aboutUs')
-    })
-    //-----------------------------------------------------------------
-    //NetWork.use('/main',NetWorkRouter)
+    console.log('導引至關於我們')
+    res.render('main/aboutUs')
+})
+
+//-----------------------------------------------------------------
+//NetWork.use('/main',NetWorkRouter)
 
 const host = "127.0.0.1"
 const port = 3000
