@@ -1,6 +1,4 @@
-.row {
-    background-color: pink;
-}
+.row {}
 
 .row.justify-content-center {
     border-radius: 0 0 20px 20px;
