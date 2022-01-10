@@ -21,17 +21,22 @@ block content
 
     script.
         document.addEventListener('DOMContentLoaded', function() {
-            var content = {title: 'D Jason',start: '2022-01-07'}
+            var _sceduleContent = {title: 'D Jason',start: '2022-01-07'}
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 plugins: ['interaction', 'dayGrid'],
                 defaultDate: '2022-01-06',
                 editable: true,
                 eventLimit: true, // allow "more" link when too many events
-                events: [content,content,content,content,content,content,],
+                events: [_sceduleContent],
             });
             calendar.render();
+            let content =`
+                <button type="button" class="fc-button fc-button-primary" onclick="AutoSchedule()">自動化排班</button>
+            `
             $('h2').css('color','white');
             $('.fc-view-container').css('background-color','lightcyan')
+            $('.fc-today-button.fc-button.fc-button-primary').before(content);
         });
     script(src="/calendar/js/main.js")
+    script(src="/JS/autoSchedule.js")

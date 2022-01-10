@@ -125,10 +125,9 @@ const MongoClient = require("mongodb").MongoClient;
 const url =
     "mongodb+srv://Henry:12345@schedeulemode.4vfu7.mongodb.net/Network?retryWrites=true";
 
-// Use connect method to connect to the Server
 MongoClient.connect(url, function(err, client) {
     //Main Function
-    const dbMember = client.db('Network').collection('Member')
+    const dbMember = client.db('Network').collection('Number')
     const dbSchedule = client.db('Network').collection('Schedule')
 
     dbMember.find({}).toArray(function(err, result) {
@@ -148,6 +147,8 @@ MongoClient.connect(url, function(err, client) {
 
 //-------------------------------------------
 //Main Function
+
+
 function AutoSchedule() {
     //let IsWorking = true
     //$('#block_msg').fadeIn()
@@ -208,7 +209,7 @@ function AutoSchedule() {
     //     console.log(i + "號:" + Opt[i])
     // }
     //-------------------
-
+    // var _sceduleContent = {title: 'D Jason',start: '2022-01-07'}
     //console.log(Calender);
     //if(!IsWorking) $('#block_msg').fadeOut()
 }

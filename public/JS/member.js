@@ -4,7 +4,6 @@ function addMember() {
     let IDnum = $('#IDnum').val();
     let Name = $('#Name').val();
     let Rest = $('#Rest').val();
-    console.log(IDnum, Name, Rest);
     if (IDnum == "" || Name == "" || Rest == "") {
         alert("請填寫完整");
     } else {
@@ -14,7 +13,6 @@ function addMember() {
             'name': Name,
             'fixedday': Rest
         }
-
         $.get(api, data, function(data, status) {
             alert("已填寫完成")
             $('#IDnum').val('');
@@ -87,8 +85,8 @@ function updateMember(id) {
 
 //刪除待辦事項
 function removeMember(id) {
-    var API = "http://127.0.0.1:3000/memberAPI/removeMember";
-    var data = { "id": id };
+    let API = "http://127.0.0.1:3000/memberAPI/removeMember";
+    let data = { "id": id };
     $.post(API, data, function(res) {
         if (res.status == 0) {
             $('#' + id).remove();
