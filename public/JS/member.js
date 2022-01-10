@@ -38,13 +38,13 @@ function newMember(data) {
         for (var y = 0; y < data[x].ID.length; y++) {
             var content =
                 `<div class="input-group mb-3" id="${data[x].ID[y]}" style="color:blue">
-            <input type="text" class="form-control col-sm-1" id="IDNum${data[x].ID[y]}" value="員工編號 : ${data[x].ID[y]}" readonly> 
+            <input type="text" class="form-control col-md-3" id="IDNum${data[x].ID[y]}" value="員工編號 : ${data[x].ID[y]}" readonly> 
             <input type="text" class="form-control col-sm-9" id="Name${data[x].ID[y]}" value="${data[x].Name[y]}" readonly>
             <input type="text" class="form-control col-sm-9" id="Name${data[x].ID[y]}" value="${data[x].FixedDay[y]}" readonly>
             <div class="input-group-append" id="button-addon4">
-            <button class="btn btn-outline-secondary" type="button" id="btnEdit${data[x].ID[y]}" onclick="editMember('${data[x].ID[y]}')">修改</button>
-            <button class="btn btn-outline-secondary d-none" type="button" id="btnUpdate${data[x].ID[y]}" onclick="updateMember('${data[x].ID[y]}')">更新</button>
-            <button class="btn btn-outline-secondary" type="button" id="btnRemove${data[x].ID[y]}" onclick="removeMember('${data[x].ID[y]}')">刪除</button>
+                <button class="btn btn-outline-secondary" type="button" id="btnEdit${data[x].ID[y]}" onclick="editMember('${data[x].ID[y]}')">修改</button>
+                <button class="btn btn-outline-secondary d-none" type="button" id="btnUpdate${data[x].ID[y]}" onclick="updateMember('${data[x].ID[y]}')">更新</button>
+                <button class="btn btn-outline-secondary" type="button" id="btnRemove${data[x].ID[y]}" onclick="removeMember('${data[x].ID[y]}')">刪除</button>
             </div>
         </div>
             </div>
