@@ -26,7 +26,7 @@ const Manager_num = 2
     //正職
 const Full_num = 4
     //兼職
-const Part_num = 6
+const Part_num = 7
     //總人數
 const All_num = Manager_num + Full_num + Part_num
     //------------------------------------
@@ -95,28 +95,28 @@ var Opt = {
     //WorkDay 工作日期(string)
     //------------------------
 var Manager = {
-    // Job: 1,
-    // ID: [100,101],
-    // Name: ["Jay","Jason"],
-    // FixedDay:["Sat,Wed","Tues,Thur"],
-    // FlexiableDay:['',''],
-    // WorkDay:["",""]
+    // "Job": 1,
+    // "ID": [100,101],
+    // "Name": ["Jay","Jason"],
+    // "FixedDay":["Sat-Wed","Tues-Thur"],
+    // "FlexiableDay":["",""],
+    // "WorkDay":["",""]
 }
 var FullTime = {
-    // Job:2,
-    // ID:[200,201,202,203],
-    // Name:["Doris","Jerry","Allen","Leo"],
-    // FixedDay:["Fri,Sat","Sun,Wed","Tues,Thur","Fri,Sun"],
-    // FlexiableDay:['','','',''],
-    // WorkDay:["","","",""]
+    // "Job":2,
+    // "ID":[200,201,202,203],
+    // "Name":["Doris","Jerry","Allen","Leo"],
+    // "FixedDay":["Fri-Sat","Sun-Wed","Tues-Thur","Fri-Sun"],
+    // "FlexiableDay":["","","",""],
+    // "WorkDay":["","","",""]
 }
 var PartTime = {
-        // Job:3,
-        // ID:[300,301,302,303,304,305],
-        // Name:["Henry","Herry","Bolly","Queenie","Kim","Ruby"],
-        // FixedDay:["Fri,Sat,Sun","Fri,Sat","Mon,Sat","Tues,Sun","Wed,Thur","Fri,Sat,Sun"],
-        // FlexiableDay:['','','','','',''],
-        // WorkDay:["","","","","",""]
+        // "Job": 3,
+        // "ID": [300, 301, 302, 303, 304, 305],
+        // "Name": ["Henry", "Herry", "Bolly", "Queenie", "Kim", "Ruby"],
+        // "FixedDay": ["Fri-Sat-Sun", "Fri-Sat", "Mon-Sat", "Tues-Sun", "Wed-Thur", "Fri-Sat-Sun"],
+        // "FlexiableDay": ["", "", "", "", "", ""],
+        // "WorkDay": ["", "", "", "", "", ""]
     }
     //資料庫連線---------------------------
 
@@ -136,6 +136,7 @@ MongoClient.connect(url, function(err, client) {
         Manager = JSON.parse(JSON.stringify(result[0]));
         FullTime = JSON.parse(JSON.stringify(result[1]));
         PartTime = JSON.parse(JSON.stringify(result[2]));
+        //待解決（雲端抓下來順序錯誤會導致報錯）
         AutoSchedule()
     })
 
@@ -191,21 +192,21 @@ function AutoSchedule() {
     //   console.log(FullTime.Name[i] + " 上班:" + FullTime.WorkDay[i])
     //   console.log(FullTime.Name[i] + " 排休:" + FullTime.FlexiableDay[i])
     // }
-    // for (let i = 0; i < Part_num; i++) {
-    //   console.log(PartTime.Name[i] + " 上班:" + PartTime.WorkDay[i])
-    //   console.log(PartTime.Name[i] + " 排休:" + PartTime.FlexiableDay[i])
-    // }
-    console.log("Manager人手不足日:" + ManagerhelfError);
-    console.log("FullTime人手不足日:" + FullTimehelfError);
-    console.log("PartTime人手不足日:" + PartTimehelfError);
-
-    console.log("Manager全請日:" + ManagerError)
-    console.log("FullTime全請日:" + FullTimeError)
-    console.log("PartTime全請日:" + PartTimeError)
-
-    for (let i = 1; i <= Object.keys(Opt).length - 8; i++) {
-        console.log(i + "號:" + Opt[i])
+    for (let i = 0; i < Part_num; i++) {
+        console.log(PartTime.Name[i] + " 上班:" + PartTime.WorkDay[i])
+        console.log(PartTime.Name[i] + " 排休:" + PartTime.FlexiableDay[i])
     }
+    // console.log("Manager人手不足日:" + ManagerhelfError);
+    // console.log("FullTime人手不足日:" + FullTimehelfError);
+    // console.log("PartTime人手不足日:" + PartTimehelfError);
+
+    // console.log("Manager全請日:" + ManagerError)
+    // console.log("FullTime全請日:" + FullTimeError)
+    // console.log("PartTime全請日:" + PartTimeError)
+
+    // for (let i = 1; i <= Object.keys(Opt).length - 8; i++) {
+    //     console.log(i + "號:" + Opt[i])
+    // }
     //-------------------
 
     //console.log(Calender);
@@ -235,21 +236,21 @@ function GetStartDay() {
 //休假統整"Check"---------------------------------
 function MemLeave(Job, Member) {
     for (let i = 0; i < Member; i++) {
-        let FixedTemp = Job.FixedDay[i].split(',')
+        let FixedTemp = Job.FixedDay[i].split('-')
 
         if (Job.FlexiableDay[i].length == 0) Job.FlexiableDay[i] = ""
-        else Job.FlexiableDay[i] += ','
+        else Job.FlexiableDay[i] += '-'
 
         for (let j = 0; j < Calender.length; j++) {
             for (let k = 0; k < FixedTemp.length; k++) {
                 if (FixedTemp[k] == Calender[j]) {
-                    Job.FlexiableDay[i] += (j + 1) + ','
+                    Job.FlexiableDay[i] += (j + 1) + '-'
                     break
                 }
             }
         }
 
-        let CompleteLeave = Job.FlexiableDay[i].split(',');
+        let CompleteLeave = Job.FlexiableDay[i].split('-');
         Job.FlexiableDay[i] = "";
         for (let c = 0; c < CompleteLeave.length; c++) {
             CompleteLeave[i] = parseInt(CompleteLeave[i], 10)
@@ -259,7 +260,7 @@ function MemLeave(Job, Member) {
         CompleteLeave.sort(compareNumbers)
 
         for (let c = 0; c < CompleteLeave.length; c++) {
-            Job.FlexiableDay[i] += CompleteLeave[c] + ',';
+            Job.FlexiableDay[i] += CompleteLeave[c] + '-';
         }
         Job.FlexiableDay[i] = Job.FlexiableDay[i].substr(0, Job.FlexiableDay[i].length - 1)
     }
@@ -298,7 +299,7 @@ function ManagerSchedule(Day) {
     let TempNum = RamdomMem(Manager_num, 0)
         //若無連續工作五天且無排休就給班
     if (IsMemOverFive(Manager.Job, Manager.ID[TempNum], Manager.WorkDay[TempNum]) && !IsLeave(Manager, TempNum, Day)) {
-        Manager.WorkDay[TempNum] += "," + Day.toString()
+        Manager.WorkDay[TempNum] += "-" + Day.toString()
         PushSchedule(Day, Manager.Name[TempNum], Manager.Job)
         Checkpoint = true
     }
@@ -306,7 +307,7 @@ function ManagerSchedule(Day) {
     else {
         for (let i = 0; i < Manager_num; i++) {
             if (TempNum != i && !IsLeave(Manager, i, Day)) {
-                Manager.WorkDay[i] += "," + Day.toString()
+                Manager.WorkDay[i] += "-" + Day.toString()
                 PushSchedule(Day, Manager.Name[i], Manager.Job)
                 Checkpoint = true;
                 break
@@ -352,7 +353,7 @@ function FullSchedule(Day) {
     let TempNum = RamdomMem(Full_num, 0)
         //若無連續工作五天且無排休就給班
     if (IsMemOverFive(FullTime.Job, FullTime.ID[TempNum], FullTime.WorkDay[TempNum]) && !IsLeave(FullTime, TempNum, Day) && !IsSchedule(FullTime.WorkDay[TempNum], Day)) {
-        FullTime.WorkDay[TempNum] += "," + Day.toString()
+        FullTime.WorkDay[TempNum] += "-" + Day.toString()
         PushSchedule(Day, FullTime.Name[TempNum], FullTime.Job);
         Checkpoint = true
     }
@@ -360,7 +361,7 @@ function FullSchedule(Day) {
     else {
         for (let i = 0; i < Full_num; i++) {
             if (TempNum != i && !IsLeave(FullTime, i, Day) && !IsSchedule(FullTime.WorkDay[i], Day)) {
-                FullTime.WorkDay[i] += "," + Day.toString()
+                FullTime.WorkDay[i] += "-" + Day.toString()
                 PushSchedule(Day, FullTime.Name[i], FullTime.Job);
                 Checkpoint = true;
                 break
@@ -406,7 +407,7 @@ function PartSchedule(Day) {
     let TempNum = RamdomMem(Part_num, 0)
         //若無連續工作五天且無排休就給班
     if (IsMemOverFive(PartTime.Job, PartTime.ID[TempNum], PartTime.WorkDay[TempNum]) && !IsLeave(PartTime, TempNum, Day) && !IsSchedule(PartTime.WorkDay[TempNum], Day)) {
-        PartTime.WorkDay[TempNum] += "," + Day.toString()
+        PartTime.WorkDay[TempNum] += "-" + Day.toString()
         PushSchedule(Day, PartTime.Name[TempNum], PartTime.Job)
         Checkpoint = true
     }
@@ -414,7 +415,7 @@ function PartSchedule(Day) {
     else {
         for (let i = 0; i < Part_num; i++) {
             if (TempNum != i && !IsLeave(PartTime, i, Day) && !IsSchedule(PartTime.WorkDay[i], Day)) {
-                PartTime.WorkDay[i] += "," + Day.toString()
+                PartTime.WorkDay[i] += "-" + Day.toString()
                 PushSchedule(Day, PartTime.Name[i], PartTime.Job)
                 Checkpoint = true;
                 break
@@ -437,7 +438,7 @@ function IsMemOverFive(Job, ID, WorkDay) {
     //ID初始值校正
     let JobNum = 0
         //存取工作天存入陣列
-    let Temp = WorkDay.split(",")
+    let Temp = WorkDay.split("-")
         //存取已編排工作天數
     let TempLength = Temp.length
         //校正排班的第一天位置
@@ -483,7 +484,7 @@ function IsMemOverFive(Job, ID, WorkDay) {
 
 //是否排休"Check"--------------------------------
 function IsLeave(Job, Worker, Day) {
-    let LeaveTemp = Job.FlexiableDay[Worker].split(',')
+    let LeaveTemp = Job.FlexiableDay[Worker].split('-')
     for (let i = 0; i < LeaveTemp.length; i++) {
         if (Day == LeaveTemp[i]) return true
     }
@@ -587,7 +588,7 @@ function DayErrorCatch(Day, Job) {
 }
 //是否已經排班"check"-----------------------------
 function IsSchedule(PersonWorkDay, Day) {
-    let PersonWorkDayTemp = PersonWorkDay.toString().split(',')
+    let PersonWorkDayTemp = PersonWorkDay.toString().split('-')
     for (let i = 0; i < PersonWorkDayTemp.length; i++)
         if (PersonWorkDayTemp[i] === Day.toString()) return true
     return false
