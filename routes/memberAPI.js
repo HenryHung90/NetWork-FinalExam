@@ -10,14 +10,38 @@ var FullTime;
 var PartTime;
 //-------------------------
 router.get('/addMember', function(req, res) {
-    let IDNum = req.query.IDnum
-    MongoClient.connect(url, function(err, Client) { //webServer跟DB搜尋資料
-        const dbMember = Client.db("Network").collection("Member");
-        if (err) throw err;
-        else {
-            console.log("123")
-            dbMember.updateOne({ "Job": "1" }, { $addToSet: { Name: "Joseph" } })
+    MongoClient.connect(url, function(err, Client) {
+        const dbMember = Client.db('Network').collection('Member')
+        let _ID = req.query.id
+        let _Name = req.query.name
+        let _FixedDay = req.query.fixedday.toString()
+        let empty = " "
+        let FindJob = _ID.split('')
+
+        if (FindJob[0] == 1) {
+            console.log("Enter 1")
+            dbMember.updateOne({ Job: 1 }, { $push: { ID: parseInt(_ID), Name: _Name, 'FixedDay': _FixedDay.toString(), FlexiableDay: empty, WorkDay: empty } }, function(err, res) {
+                if (err) throw err
+                console.log('ID新增成功')
+            })
+        } else if (FindJob[0] == 2) {
+            console.log("Enter 2")
+            dbMember.updateOne({ Job: 2 }, { $push: { ID: parseInt(_ID), 'Name': _Name, 'FixedDay': _FixedDay.toString(), FlexiableDay: empty, WorkDay: empty } }, function(err, res) {
+                if (err) throw err
+                console.log('ID新增成功')
+            })
+        } else {
+            console.log("Enter 3")
+            dbMember.updateOne({ Job: 3 }, { $push: { 'ID': parseInt(_ID), 'Name': _Name, 'FixedDay': _FixedDay.toString(), 'FlexiableDay': empty, 'WorkDay': empty } }, function(err, res) {
+                if (err) throw err
+                console.log('ID新增成功')
+            })
         }
+        dbMember.find({}).toArray(function(err, result) {
+            if (err) throw err
+            res.json(result)
+        })
+
     })
 
 });

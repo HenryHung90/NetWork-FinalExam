@@ -41,6 +41,7 @@ const saltRounds = 10 //整數型態，數值越高越安全
     //     console.log(res); // true
     // });
     //-----------------------
+
 NetWork.use(express.static("public"))
 NetWork.use(express.json())
 NetWork.set("view engine", "pug")
@@ -70,9 +71,11 @@ NetWork.post("/main/news", urlencodedParser, (req, res) => {
             if (err) throw err
             bcrypt.compare(IptPassword, doc[0].Key).then(function(gate) {
                 if (gate) {
-                    res.render("main/news")
+                    res.redirect("news")
                     IsLogin = true
-                } else res.send("帳號或密碼錯誤")
+                } else {
+                    res.redirect('../')
+                }
             });
         });
     })
@@ -99,15 +102,6 @@ NetWork.get('/main/handjob', (req, res) => {
 NetWork.get('/main/member', (req, res) => {
     if (IsLogin) {
         console.log("導引至員工名單");
-        // MongoClient.connect(url, function(err, client) {
-        //     const dbMember = client.db("Network").collection("Member");
-        //     dbMember.find({}).toArray(function(err, result) {
-        //         if (err) throw err
-        //         Manager = JSON.parse(JSON.stringify(result[0]));
-        //         FullTime = JSON.parse(JSON.stringify(result[1]));
-        //         PartTime = JSON.parse(JSON.stringify(result[2]));
-        //     })
-        // });
         res.render("main/member");
     } else res.send('非法闖入')
 })

@@ -1,4 +1,4 @@
-getMember();
+getMember()
 
 function addMember() {
     let IDnum = $('#IDnum').val();
@@ -9,13 +9,12 @@ function addMember() {
     } else {
         let api = "http://127.0.0.1:3000/memberAPI/addMember";
         let data = {
-            "IDnum": IDnum,
-            "Name": Name,
-            "Rest": Rest,
-        };
-        $.get(api, data, function(res) {
-            alert("員工 : " + data.Name + " 已填寫完成")
-            newMember(res.data);
+            'id': IDnum,
+            'name': Name,
+            'fixedday': Rest
+        }
+        $.get(api, data, function(data, status) {
+            alert("已填寫完成")
             $('#IDnum').val('');
             $('#Name').val('');
             $('#Rest').val('');
@@ -32,7 +31,6 @@ function getMember() {
 
 //每個物件生成
 function newMember(data) {
-    console.log(data[0].ID.length);
     for (let x = 0; x < data.length; x++) {
         for (let y = 0; y < data[x].ID.length; y++) {
             let content =
