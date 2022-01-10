@@ -12,10 +12,10 @@ const assert = require("assert")
 const url = "mongodb+srv://Henry:12345@schedeulemode.4vfu7.mongodb.net/Network?retryWrites=true";
 
 // Use connect method to connect to the Server
-// MongoClient.connect(url, function(err, client) {
-//     assert.equal(null, err)
-//     console.log("connect to " + url)
-// });
+MongoClient.connect(url, function(err, client) {
+    assert.equal(null, err)
+    console.log("connect to " + url)
+});
 
 //引入body-parser(用於解析json, row, txt, URL-encoded格式)
 const bodyParser = require("body-parser");

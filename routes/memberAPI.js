@@ -9,28 +9,41 @@ var Manager;
 var FullTime;
 var PartTime;
 //-------------------------
-router.post('/addMember', function(req, res) {
-    var newMember = new memberModel({
-        IDnum: req.body.IDnum,
-        Name: req.body.Name,
-        Rest: req.body.Rest,
-    });
-    newMember.save(function(err, data) {
-        if (err) {
-            res.json({
-                "status": 1,
-                "msg": "error"
-            });
-            console.log("新增失敗");
+router.get('/addMember', function(req, res) {
+    MongoClient.connect(url, function(err, Client) {
+        const dbMember = Client.db('Network').collection('Member')
+        let _ID = req.query.id
+        let _Name = req.query.name
+        let _FixedDay = req.query.fixedday.toString()
+        let empty = " "
+        let FindJob = _ID.split('')
+
+        if (FindJob[0] == 1) {
+            console.log("Enter 1")
+            dbMember.updateOne({ Job: 1 }, { $push: { ID: parseInt(_ID), Name: _Name, 'FixedDay': _FixedDay.toString(), FlexiableDay: empty, WorkDay: empty } }, function(err, res) {
+                if (err) throw err
+                console.log('ID新增成功')
+            })
+        } else if (FindJob[0] == 2) {
+            console.log("Enter 2")
+            dbMember.updateOne({ Job: 2 }, { $push: { ID: parseInt(_ID), 'Name': _Name, 'FixedDay': _FixedDay.toString(), FlexiableDay: empty, WorkDay: empty } }, function(err, res) {
+                if (err) throw err
+                console.log('ID新增成功')
+            })
         } else {
-            res.json({
-                "status": 0,
-                "msg": "success",
-                "data": data
-            });
-            console.log("新增成功");
+            console.log("Enter 3")
+            dbMember.updateOne({ Job: 3 }, { $push: { 'ID': parseInt(_ID), 'Name': _Name, 'FixedDay': _FixedDay.toString(), 'FlexiableDay': empty, 'WorkDay': empty } }, function(err, res) {
+                if (err) throw err
+                console.log('ID新增成功')
+            })
         }
+        dbMember.find({}).toArray(function(err, result) {
+            if (err) throw err
+            res.json(result)
+        })
+
     })
+
 });
 
 //登入畫面擷取所有資料
