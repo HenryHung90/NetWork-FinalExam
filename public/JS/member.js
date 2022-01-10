@@ -1,20 +1,19 @@
 getMember();
 
 function addMember() {
-    var IDnum = $('#IDnum').val();
-    var Name = $('#Name').val();
-    var Rest = $('#Rest').val();
-    console.log(IDnum, Name, Rest);
+    let IDnum = $('#IDnum').val();
+    let Name = $('#Name').val();
+    let Rest = $('#Rest').val();
     if (IDnum == "" || Name == "" || Rest == "") {
         alert("請填寫完整");
     } else {
-        var api = "http://127.0.0.1:3000/memberAPI/addMember";
-        var data = {
+        let api = "http://127.0.0.1:3000/memberAPI/addMember";
+        let data = {
             "IDnum": IDnum,
             "Name": Name,
             "Rest": Rest,
         };
-        $.post(api, data, function(res) {
+        $.get(api, data, function(res) {
             alert("員工 : " + data.Name + " 已填寫完成")
             newMember(res.data);
             $('#IDnum').val('');
@@ -25,7 +24,7 @@ function addMember() {
 }
 //取得資料庫物件
 function getMember() {
-    var api = "http://127.0.0.1:3000/memberAPI/getMember"
+    let api = "http://127.0.0.1:3000/memberAPI/getMember"
     $.get(api, function(data, status) {
         newMember(data);
     })
@@ -34,9 +33,9 @@ function getMember() {
 //每個物件生成
 function newMember(data) {
     console.log(data[0].ID.length);
-    for (var x = 0; x < data.length; x++) {
-        for (var y = 0; y < data[x].ID.length; y++) {
-            var content =
+    for (let x = 0; x < data.length; x++) {
+        for (let y = 0; y < data[x].ID.length; y++) {
+            let content =
                 `<div class="input-group mb-3" id="${data[x].ID[y]}" style="color:blue">
             <input type="text" class="form-control col-md-3" id="IDNum${data[x].ID[y]}" value="員工編號 : ${data[x].ID[y]}" readonly> 
             <input type="text" class="form-control col-sm-9" id="Name${data[x].ID[y]}" value="${data[x].Name[y]}" readonly>
@@ -65,10 +64,10 @@ function editMember(id) {
 
 //更新待辦事項
 function updateMember(id) {
-    var Name = $("#Name" + id).val();
-    var Rest = $("#Rest" + id).val();
-    var API = "http://127.0.0.1:3000/memberAPI/updateMember";
-    var data = {
+    let Name = $("#Name" + id).val();
+    let Rest = $("#Rest" + id).val();
+    let API = "http://127.0.0.1:3000/memberAPI/updateMember";
+    let data = {
         "IDnum": IDnum,
         "Name": Name,
         "Rest": Rest,
@@ -88,8 +87,8 @@ function updateMember(id) {
 
 //刪除待辦事項
 function removeMember(id) {
-    var API = "http://127.0.0.1:3000/memberAPI/removeMember";
-    var data = { "id": id };
+    let API = "http://127.0.0.1:3000/memberAPI/removeMember";
+    let data = { "id": id };
     $.post(API, data, function(res) {
         if (res.status == 0) {
             $('#' + id).remove();

@@ -9,28 +9,17 @@ var Manager;
 var FullTime;
 var PartTime;
 //-------------------------
-router.post('/addMember', function(req, res) {
-    var newMember = new memberModel({
-        IDnum: req.body.IDnum,
-        Name: req.body.Name,
-        Rest: req.body.Rest,
-    });
-    newMember.save(function(err, data) {
-        if (err) {
-            res.json({
-                "status": 1,
-                "msg": "error"
-            });
-            console.log("新增失敗");
-        } else {
-            res.json({
-                "status": 0,
-                "msg": "success",
-                "data": data
-            });
-            console.log("新增成功");
+router.get('/addMember', function(req, res) {
+    let IDNum = req.query.IDnum
+    MongoClient.connect(url, function(err, Client) { //webServer跟DB搜尋資料
+        const dbMember = Client.db("Network").collection("Member");
+        if (err) throw err;
+        else {
+            console.log("123")
+            dbMember.updateOne({ "Job": "1" }, { $addToSet: { Name: "Joseph" } })
         }
     })
+
 });
 
 //登入畫面擷取所有資料

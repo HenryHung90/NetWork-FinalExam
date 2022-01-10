@@ -95,58 +95,59 @@ var Opt = {
     //WorkDay 工作日期(string)
     //------------------------
 var Manager = {
-    // Job: 1,
-    // ID: [100,101],
-    // Name: ["Jay","Jason"],
-    // FixedDay:["Sat,Wed","Tues,Thur"],
-    // FlexiableDay:['',''],
-    // WorkDay:["",""]
+    Job: 1,
+    ID: [100, 101],
+    Name: ["Jay", "Jason"],
+    FixedDay: ["Sat,Wed", "Tues,Thur"],
+    FlexiableDay: ['', ''],
+    WorkDay: ["", ""]
 }
 var FullTime = {
-    // Job:2,
-    // ID:[200,201,202,203],
-    // Name:["Doris","Jerry","Allen","Leo"],
-    // FixedDay:["Fri,Sat","Sun,Wed","Tues,Thur","Fri,Sun"],
-    // FlexiableDay:['','','',''],
-    // WorkDay:["","","",""]
+    Job: 2,
+    ID: [200, 201, 202, 203],
+    Name: ["Doris", "Jerry", "Allen", "Leo"],
+    FixedDay: ["Fri,Sat", "Sun,Wed", "Tues,Thur", "Fri,Sun"],
+    FlexiableDay: ['', '', '', ''],
+    WorkDay: ["", "", "", ""]
 }
 var PartTime = {
-        // Job:3,
-        // ID:[300,301,302,303,304,305],
-        // Name:["Henry","Herry","Bolly","Queenie","Kim","Ruby"],
-        // FixedDay:["Fri,Sat,Sun","Fri,Sat","Mon,Sat","Tues,Sun","Wed,Thur","Fri,Sat,Sun"],
-        // FlexiableDay:['','','','','',''],
-        // WorkDay:["","","","","",""]
+        Job: 3,
+        ID: [300, 301, 302, 303, 304, 305],
+        Name: ["Henry", "Herry", "Bolly", "Queenie", "Kim", "Ruby"],
+        FixedDay: ["Fri,Sat,Sun", "Fri,Sat", "Mon,Sat", "Tues,Sun", "Wed,Thur", "Fri,Sat,Sun"],
+        FlexiableDay: ['', '', '', '', '', ''],
+        WorkDay: ["", "", "", "", "", ""]
     }
     //資料庫連線---------------------------
-const MongoClient = require("mongodb").MongoClient;
+    //     const MongoClient = require("mongodb").MongoClient;
+    //     //Connection URL
+    //     const url =
+    //         "mongodb+srv://Henry:12345@schedeulemode.4vfu7.mongodb.net/Network?retryWrites=true";
 
-// Connection URL
-const url =
-    "mongodb+srv://Henry:12345@schedeulemode.4vfu7.mongodb.net/Network?retryWrites=true";
+// // Use connect method to connect to the Server
+// MongoClient.connect(url, function(err, client) {
+//     //Main Function
+//     const dbMember = client.db('Network').collection('Member')
+//     const dbSchedule = client.db('Network').collection('Schedule')
 
-// Use connect method to connect to the Server
-MongoClient.connect(url, function(err, client) {
-    //Main Function
-    const dbMember = client.db('Network').collection('Member')
-    const dbSchedule = client.db('Network').collection('Schedule')
+//     dbMember.find({}).toArray(function(err, result) {
+//         if (err) throw err
+//         Manager = JSON.parse(JSON.stringify(result[0]));
+//         FullTime = JSON.parse(JSON.stringify(result[1]));
+//         PartTime = JSON.parse(JSON.stringify(result[2]));
+//         AutoSchedule()
+//     })
 
-    dbMember.find({}).toArray(function(err, result) {
-        if (err) throw err
-        Manager = JSON.parse(JSON.stringify(result[0]));
-        FullTime = JSON.parse(JSON.stringify(result[1]));
-        PartTime = JSON.parse(JSON.stringify(result[2]));
-        AutoSchedule()
-    })
-
-    dbSchedule.insertOne(Opt, function(err, res) {
-        if (err) throw err
-        console.log("新增成功!!")
-    })
-});
+//     dbSchedule.insertOne(Opt, function(err, res) {
+//         if (err) throw err
+//         console.log("新增成功!!")
+//     })
+// });
 
 //-------------------------------------------
 //Main Function
+
+
 function AutoSchedule() {
     //let IsWorking = true
     //$('#block_msg').fadeIn()
@@ -207,7 +208,7 @@ function AutoSchedule() {
         console.log(i + "號:" + Opt[i])
     }
     //-------------------
-
+    // var _sceduleContent = {title: 'D Jason',start: '2022-01-07'}
     //console.log(Calender);
     //if(!IsWorking) $('#block_msg').fadeOut()
 }
