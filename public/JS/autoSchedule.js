@@ -119,8 +119,8 @@ var PartTime = {
         // WorkDay:["","","","","",""]
     }
     //資料庫連線---------------------------
-const MongoClient = require("mongodb").MongoClient;
 
+const MongoClient = require("mongodb").MongoClient;
 // Connection URL
 const url =
     "mongodb+srv://Henry:12345@schedeulemode.4vfu7.mongodb.net/Network?retryWrites=true";

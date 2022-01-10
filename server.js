@@ -2,6 +2,9 @@
 const express = require("express")
 const NetWork = express()
 
+//設定網頁分頁路由
+const memberAPI = require('./routes/memberAPI')
+
 //引入Mongodb
 const MongoClient = require("mongodb").MongoClient;
 const assert = require("assert")
@@ -11,10 +14,10 @@ const url =
     "mongodb+srv://Henry:12345@schedeulemode.4vfu7.mongodb.net/Network?retryWrites=true";
 
 // Use connect method to connect to the Server
-MongoClient.connect(url, function(err, client) {
-    assert.equal(null, err)
-    console.log("connect to " + url)
-});
+// MongoClient.connect(url, function(err, client) {
+//     assert.equal(null, err)
+//     console.log("connect to " + url)
+// });
 
 //引入body-parser(用於解析json, row, txt, URL-encoded格式)
 const bodyParser = require("body-parser");
@@ -40,6 +43,8 @@ const saltRounds = 10 //整數型態，數值越高越安全
     //     console.log(res); // true
     // });
     //-----------------------
+NetWork.use('/memberAPI', memberAPI)
+
 NetWork.use(express.static("public"))
 NetWork.use(express.json())
 NetWork.set("view engine", "pug")
@@ -99,7 +104,15 @@ NetWork.get('/main/handjob', (req, res) => {
 NetWork.get('/main/member', (req, res) => {
     if (IsLogin) {
         console.log("導引至員工名單");
-        res.render("main/member");
+        MongoClient.connect(url, function(err, client) {
+            const dbMember = client.db('Network').collection('Member')
+            dbMember.find({}).toArray(function(err, result) {
+                let Manager = JSON.parse(JSON.stringify(result[0]))
+                let FullTime = JSON.parse(JSON.stringify(result[1]))
+                let PartTime = JSON.parse(JSON.stringify(result[2]))
+                res.render("main/member", { _Manager: JSON.stringify(Manager) })
+            })
+        })
     } else res.send('非法闖入')
 })
 NetWork.get('/main/memberRest', (req, res) => {
@@ -118,6 +131,7 @@ NetWork.get('/main/aboutUs', (req, res) => {
     console.log('導引至關於我們')
     res.render('main/aboutUs')
 })
+
 NetWork.get('/Logout', (req, res) => {
         IsLogin = false
         console.log('已登出')

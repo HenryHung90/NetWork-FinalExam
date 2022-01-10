@@ -1,16 +1,37 @@
-extends ../layout 
+extends ../layout
 
 block stylesheet
-    script(src="https://d3js.org/d3.v7.min.js")
-    script(src="/JS/schedule.js")
-block content
-    #block_msg(style="display:none;height: 1080px;position: relative;background-color: rgba(0,0,0,.5);")
+   link(rel="stylesheet",href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap")
+   link(href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap",rel="stylesheet")
+   link(rel="stylesheet",href="/calendar/fonts/icomoon/style.css")
+   link(href='/calendar/fullcalendar/packages/core/main.css',rel='stylesheet')
+   link(link href='/calendar/fullcalendar/packages/daygrid/main.css',rel='stylesheet')
+   link(rel="stylesheet",href="/calendar/css/bootstrap.min.css")
+   link(link rel="stylesheet",href="/calendar/css/style.css")
     
-    table(id='calendar')
-block stylesheet 
-    link(rel="stylesheet", href="/CSS/schedule.css")
-    script(src="/JS/schedule.js") 
-block content 
-    #date 
-        #scheduleLine
+block content
+    .content
+        #calendar
+    script(src="/calendar/js/jquery-3.3.1.min.js")
+    script(src="/calendar/js/popper.min.js")
+    script(src="/calendar/js/bootstrap.min.js")
+    script(src='/calendar/fullcalendar/packages/core/main.js')
+    script(src='/calendar/fullcalendar/packages/interaction/main.js')
+    script(src='/calendar/fullcalendar/packages/daygrid/main.js')
 
+    script.
+        document.addEventListener('DOMContentLoaded', function() {
+            var content = {title: 'D Jason',start: '2022-01-07'}
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                plugins: ['interaction', 'dayGrid'],
+                defaultDate: '2022-01-06',
+                editable: true,
+                eventLimit: true, // allow "more" link when too many events
+                events: [content,content,content,content,content,content,],
+            });
+            calendar.render();
+            $('h2').css('color','white');
+            $('.fc-view-container').css('background-color','lightcyan')
+        });
+    script(src="/calendar/js/main.js")
