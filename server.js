@@ -1,17 +1,15 @@
 //引入Express
-const express = require("express")
-const NetWork = express()
-
+const express = require("express");
 //設定網頁分頁路由
-const memberAPI = require('./routes/memberAPI')
+const memberAPI = require('./routes/memberAPI');
+const NetWork = express();
 
 //引入Mongodb
 const MongoClient = require("mongodb").MongoClient;
 const assert = require("assert")
 
 // Connection URL
-const url =
-    "mongodb+srv://Henry:12345@schedeulemode.4vfu7.mongodb.net/Network?retryWrites=true";
+const url = "mongodb+srv://Henry:12345@schedeulemode.4vfu7.mongodb.net/Network?retryWrites=true";
 
 // Use connect method to connect to the Server
 MongoClient.connect(url, function(err, client) {
@@ -43,10 +41,10 @@ const saltRounds = 10 //整數型態，數值越高越安全
     //     console.log(res); // true
     // });
     //-----------------------
-NetWork.use('/memberAPI', memberAPI)
 NetWork.use(express.static("public"))
 NetWork.use(express.json())
 NetWork.set("view engine", "pug")
+NetWork.use('/memberAPI', memberAPI)
 NetWork.get('/', (req, res) => {
     if (!IsLogin) {
         console.log("首頁");
@@ -101,6 +99,15 @@ NetWork.get('/main/handjob', (req, res) => {
 NetWork.get('/main/member', (req, res) => {
     if (IsLogin) {
         console.log("導引至員工名單");
+        // MongoClient.connect(url, function(err, client) {
+        //     const dbMember = client.db("Network").collection("Member");
+        //     dbMember.find({}).toArray(function(err, result) {
+        //         if (err) throw err
+        //         Manager = JSON.parse(JSON.stringify(result[0]));
+        //         FullTime = JSON.parse(JSON.stringify(result[1]));
+        //         PartTime = JSON.parse(JSON.stringify(result[2]));
+        //     })
+        // });
         res.render("main/member");
     } else res.send('非法闖入')
 })
@@ -122,12 +129,13 @@ NetWork.get('/main/aboutUs', (req, res) => {
 })
 
 NetWork.get('/Logout', (req, res) => {
-        IsLogin = false
-        console.log('已登出')
-        res.render('index')
-    })
-    //-----------------------------------------------------------------
-    //NetWork.use('/main',NetWorkRouter)
+    IsLogin = false
+    console.log('已登出')
+    res.render('index')
+});
+//-----------------------------------------------------------------
+//NetWork.use('/main',NetWorkRouter)
+
 
 const host = "127.0.0.1"
 const port = 3000

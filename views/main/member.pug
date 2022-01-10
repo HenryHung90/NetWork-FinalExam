@@ -1,12 +1,10 @@
 extends ../layout 
+
 block stylesheet
     link(rel="stylesheet", href="/CSS/member.css")
     script(src="/JS/member.js")
-    script(src='https://code.jquery.com/jquery-3.6.0.js' integrity='sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=' crossorigin='anonymous')
-    link(rel="stylesheet", href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css")
-    script(src="https://code.jquery.com/jquery-3.5.1.min.js")
     script(src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js")
-    script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js")
+
 block content 
     .container.border.bg-light
         .row
@@ -29,7 +27,3 @@ block content
                 .row.m-3.justify-content-center
                     .col-sm-1
                         input(type="button" class="btn btn-outline-success" value="新增員工" onclick="addMember()")
-        
-    
-    
-    
