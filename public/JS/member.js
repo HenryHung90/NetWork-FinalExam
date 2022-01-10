@@ -1,7 +1,4 @@
-getMember();
-
-let ManagerData = document.getElementById('111')
-console.log(ManagerData)
+getMember()
 
 function addMember() {
     var IDnum = $('#IDnum').val();
