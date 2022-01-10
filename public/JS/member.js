@@ -17,7 +17,6 @@ function addMember() {
 
         $.get(api, data, function(data, status) {
             alert("已填寫完成")
-            newMember(data);
             $('#IDnum').val('');
             $('#Name').val('');
             $('#Rest').val('');
