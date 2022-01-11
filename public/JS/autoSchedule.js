@@ -26,7 +26,7 @@ const Manager_num = 2
     //正職
 const Full_num = 4
     //兼職
-const Part_num = 7
+const Part_num = 6
     //總人數
 const All_num = Manager_num + Full_num + Part_num
     //------------------------------------
@@ -139,6 +139,7 @@ var PartTime = {
 //         AutoSchedule()
 //     })
 
+
 //     dbSchedule.insertOne(Opt, function(err, res) {
 //         if (err) throw err
 //         console.log("新增成功!!")
@@ -224,7 +225,7 @@ function AutoSchedule() {
     });
     //-------------------
     // var _sceduleContent = {title: 'D Jason',start: '2022-01-07'}
-    //console.log(Calender);
+    // console.log(Calender);
     //if(!IsWorking) $('#block_msg').fadeOut()
 }
 //--------------------------------------------
@@ -611,7 +612,7 @@ function IsSchedule(PersonWorkDay, Day) {
 //--------------------------------------------
 //liitle function
 function IsWeekend(Day) {
-    if (Calender[Day] == 'Sat' || Calender[Day] == 'Sun') return true
+    if (Calender[Day - 1] == 'Sat' || Calender[Day - 1] == 'Sun') return true
     return false
 }
 //math function

@@ -35,9 +35,9 @@ function newMember(data) {
         for (let y = 0; y < data[x].ID.length; y++) {
             let content =
                 `<div class="input-group mb-3" id="${data[x].ID[y]}" style="color:blue">
-            <input type="text" class="form-control col-md-3" id="IDNum${data[x].ID[y]}" value="員工編號 : ${data[x].ID[y]}" readonly> 
+            <input type="text" class="form-control col-md-3" id="IDNum${data[x].ID[y]}" value="${data[x].ID[y]}" readonly> 
             <input type="text" class="form-control col-sm-9" id="Name${data[x].ID[y]}" value="${data[x].Name[y]}" readonly>
-            <input type="text" class="form-control col-sm-9" id="Name${data[x].ID[y]}" value="${data[x].FixedDay[y]}" readonly>
+            <input type="text" class="form-control col-sm-9" id="FixedDay${data[x].ID[y]}" value="${data[x].FixedDay[y]}" readonly>
             <div class="input-group-append" id="button-addon4">
                 <button class="btn btn-outline-secondary" type="button" id="btnEdit${data[x].ID[y]}" onclick="editMember('${data[x].ID[y]}')">修改</button>
                 <button class="btn btn-outline-secondary d-none" type="button" id="btnUpdate${data[x].ID[y]}" onclick="updateMember('${data[x].ID[y]}')">更新</button>
@@ -56,42 +56,48 @@ function editMember(id) {
     $('#btnEdit' + id).addClass("d-none");
     $('#btnRemove' + id).addClass("d-none");
     $('#btnUpdate' + id).removeClass("d-none");
-    $('#title' + id).attr("readonly", false);
-    $('#msg' + id).attr("readonly", false);
+    $('#Name' + id).attr("readonly", false);
+    $('#FixedDay' + id).attr("readonly", false);
+    let api = "http://127.0.0.1:3000/memberAPI/EditMember"
+    let data = {
+        "name": $('#Name' + id).val(),
+        "fixedday": $('#FixedDay' + id).val()
+    }
+    $.get(api, data, function(data, status) {
+
+    })
 }
 
 //更新待辦事項
 function updateMember(id) {
     let Name = $("#Name" + id).val();
-    let Rest = $("#Rest" + id).val();
+    let Rest = $("#FixedDay" + id).val();
     let API = "http://127.0.0.1:3000/memberAPI/updateMember";
     let data = {
-        "IDnum": IDnum,
-        "Name": Name,
-        "Rest": Rest,
+        "editID": id,
+        "name": Name,
+        "fixedday": Rest
     };
-    $.post(API, data, function(res) {
-        console.log(res);
-        if (res.status == 0) {
-            alert("修改成功");
-            $('#btnEdit' + id).removeClass("d-none");
-            $('#btnRemove' + id).removeClass("d-none");
-            $('#btnUpdate' + id).addClass("d-none");
-            $('#title' + id).attr("readonly", true);
-            $('#msg' + id).attr("readonly", true);
-        };
+    $.get(API, data, function(data, status) {
+        alert("修改成功");
+        $('#btnEdit' + id).removeClass("d-none");
+        $('#btnRemove' + id).removeClass("d-none");
+        $('#btnUpdate' + id).addClass("d-none");
+        $("#Name" + id).attr("readonly", true);
+        $("#FixedDay" + id).attr("readonly", true);
     });
 }
 
 //刪除待辦事項
 function removeMember(id) {
-    let API = "http://127.0.0.1:3000/memberAPI/removeMember";
-    let data = { "id": id };
-    $.post(API, data, function(res) {
-        if (res.status == 0) {
-            $('#' + id).remove();
-            alert('success');
-        }
+    var API = "http://127.0.0.1:3000/memberAPI/removeMember";
+    var data = {
+        "id": id,
+        "name": $('#Name' + id).val(),
+        "fixedday": $('#FixedDay' + id).val()
+    };
+    $.get(API, data, function(res) {
+        alert('刪除成功')
     })
 
 }

@@ -8,6 +8,8 @@ const url = "mongodb+srv://Henry:12345@schedeulemode.4vfu7.mongodb.net/Network?r
 var Manager;
 var FullTime;
 var PartTime;
+var EditName;
+var EditFixedDay;
 //-------------------------
 router.get('/addMember', function(req, res) {
     MongoClient.connect(url, function(err, Client) {
@@ -18,30 +20,14 @@ router.get('/addMember', function(req, res) {
         let empty = " "
         let FindJob = _ID.split('')
 
-        if (FindJob[0] == 1) {
-            console.log("Enter 1")
-            dbMember.updateOne({ Job: 1 }, { $push: { ID: parseInt(_ID), Name: _Name, 'FixedDay': _FixedDay.toString(), FlexiableDay: empty, WorkDay: empty } }, function(err, res) {
-                if (err) throw err
-                console.log('ID新增成功')
-            })
-        } else if (FindJob[0] == 2) {
-            console.log("Enter 2")
-            dbMember.updateOne({ Job: 2 }, { $push: { ID: parseInt(_ID), 'Name': _Name, 'FixedDay': _FixedDay.toString(), FlexiableDay: empty, WorkDay: empty } }, function(err, res) {
-                if (err) throw err
-                console.log('ID新增成功')
-            })
-        } else {
-            console.log("Enter 3")
-            dbMember.updateOne({ Job: 3 }, { $push: { 'ID': parseInt(_ID), 'Name': _Name, 'FixedDay': _FixedDay.toString(), 'FlexiableDay': empty, 'WorkDay': empty } }, function(err, res) {
-                if (err) throw err
-                console.log('ID新增成功')
-            })
-        }
-        dbMember.find({}).toArray(function(err, result) {
+        dbMember.updateOne({ Job: parseInt(FindJob[0]) }, { $push: { ID: parseInt(_ID), Name: _Name, FixedDay: _FixedDay.toString(), FlexiableDay: empty, WorkDay: empty } }, function(err, result) {
             if (err) throw err
+            console.log('ID新增成功')
+            console.log(result)
+        })
+        dbMember.find({}).toArray(function(err, result) {
             res.json(result)
         })
-
     })
 
 });
@@ -77,56 +63,63 @@ router.get('/getMember', function(req, res) {
     })
 */
 //修改與更新待辦事項
-router.post('/updateMember', function(req, res) {
-    var id = req.body.id;
-    memberModel.findById(id, function(err, data) {
-        if (err) {
-            console.log(err);
-            res.json({
-                "status": 1,
-                "msg": "error"
-            });
-        } else {
-            data.title = req.body.title;
-            data.msg = req.body.msg;
-            data.save(function(err) {
-                if (err) {
-                    console.log(err);
-                    res.json({
-                        "status": 1,
-                        "msg": "error",
-                    })
-                } else {
-                    res.json({
-                        "status": 0,
-                        "msg": "修改成功",
-                    });
-                }
-            });
-        };
-    });
+router.get('/EditMember', function(req, res) {
+    EditName = req.query.name
+    EditFixedDay = req.query.fixedday
+    res.json(EditName)
+})
+
+router.get('/updateMember', function(req, res) {
+    MongoClient.connect(url, function(err, Client) {
+        const dbMember = Client.db('Network').collection('Member')
+        let _editID = req.query.editID
+        let _Name = req.query.name
+        let _FixedDay = req.query.fixedday.toString()
+        let FindJob = _editID.split('')
+        let FindId
+        if (FindJob[1] == '0') FindId = FindJob[2]
+        else FindId = FindJob[1] + FindJob[2]
+
+        dbMember.updateMany({ Job: parseInt(FindJob[0]) }, { $pull: { ID: parseInt(_editID), Name: EditName, FixedDay: EditFixedDay } }, function(err, result) {
+            if (err) throw err
+            console.log("刪除")
+            console.log(result)
+        })
+        dbMember.updateMany({ Job: parseInt(FindJob[0]) }, { $push: { ID: parseInt(_editID), Name: _Name, FixedDay: _FixedDay } }, function(err, result) {
+            if (err) throw err
+            console.log("修改成功")
+            console.log(result)
+            res.json(result)
+        })
+
+    })
 });
 
 //刪除待辦事項
-router.post('/removeMember', function(req, res) {
-    var id = req.body.id;
-    memberModel.remove({
-        _id: id
-    }, function(err, data) {
-        if (err) {
-            console.log(err);
-            res.json({
-                "status": 1,
-                "msg": "error"
-            });
-        } else {
-            console.log("刪除成功");
-            res.json({
-                "status": 0,
-                "msg": "success"
-            });
-        }
-    });
+router.get('/removeMember', function(req, res) {
+    MongoClient.connect(url, function(err, Client) {
+        const dbMember = Client.db('Network').collection('Member')
+        let _ID = req.query.id
+        let _Name = req.query.name
+        let _FixedDay = req.query.fixedday
+        let FindJob = _ID.split('')
+        let FindId
+        if (FindJob[1] == "0") FindId = FindJob[2]
+        else FindId = FindJob[1] + FindJob[2]
+
+        dbMember.updateMany({ Job: parseInt(FindJob[0]) }, { $pull: { ID: parseInt(_ID), Name: _Name, FixedDay: _FixedDay } }, { $multi: true }, function(err, result) {
+            if (err) throw err
+            console.log("刪除")
+            console.log(result)
+        })
+        dbMember.updateMany({ Job: parseInt(FindJob[0]) }, { $pop: { FlexiableDay: 1, WorkDay: 1 } }, { $multi: true }, function(err, result) {
+            if (err) throw err
+            console.log("刪除成功")
+            console.log(result)
+            res.json(result)
+        })
+
+    })
 });
 
 router.get('/autoSchedule', function(req, res) {
