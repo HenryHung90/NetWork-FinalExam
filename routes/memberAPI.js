@@ -122,4 +122,50 @@ router.get('/removeMember', function(req, res) {
     })
 });
 
+router.get('/autoSchedule', function(req, res) {
+    MongoClient.connect(url, function(err, client) {
+        //Main Function
+        const dbMember = client.db('Network').collection('Member')
+        dbMember.find({}).toArray(function(err, result) {
+            if (err) throw err;
+            Manager = JSON.parse(JSON.stringify(result[0]));
+            FullTime = JSON.parse(JSON.stringify(result[1]));
+            PartTime = JSON.parse(JSON.stringify(result[2]));
+            //待解決（雲端抓下來順序錯誤會導致報錯）
+            if (err) console.log(err);
+            res.json(result); //webS->前端
+        })
+
+        // dbSchedule.insertOne(Opt, function(err, res) {
+        //     if (err) throw err
+        //     console.log("新增成功!!")
+        // })
+    });
+})
+
+router.get('/_sendToDB', function(req, res) {
+    MongoClient.connect(url, function(err, client) {
+        //Main Function
+        const dbSchedule = client.db('Network').collection('Schedule')
+        console.log(req.query);
+        dbSchedule.insertOne(req.query, function(err, res) {
+            if (err) throw err
+            console.log("新增成功!!")
+        })
+    });
+})
+
+router.get('/showSchedule', function(req, res) {
+    MongoClient.connect(url, function(err, client) {
+        //Main Function
+        const dbSchedule = client.db('Network').collection('Schedule')
+        dbSchedule.find({}).toArray(function(err, result) {
+            if (err) throw err
+            if (err) console.log(err);
+            res.json(result); //webS->前端
+        })
+
+    })
+});
+
 module.exports = router;

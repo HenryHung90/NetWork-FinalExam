@@ -120,37 +120,47 @@ var PartTime = {
     }
     //資料庫連線---------------------------
 
-const MongoClient = require("mongodb").MongoClient;
-// Connection URL
-const url =
-    "mongodb+srv://Henry:12345@schedeulemode.4vfu7.mongodb.net/Network?retryWrites=true";
+// const MongoClient = require("mongodb").MongoClient;
+// // Connection URL
+// const url =
+//     "mongodb+srv://Henry:12345@schedeulemode.4vfu7.mongodb.net/Network?retryWrites=true";
 
-MongoClient.connect(url, function(err, client) {
-    //Main Function
-    const dbMember = client.db('Network').collection('Member')
-    const dbSchedule = client.db('Network').collection('Schedule')
+// MongoClient.connect(url, function(err, client) {
+//     //Main Function
+//     const dbMember = client.db('Network').collection('Number')
+//     const dbSchedule = client.db('Network').collection('Schedule')
 
-    dbMember.find({}).toArray(function(err, result) {
-        if (err) throw err
+//     dbMember.find({}).toArray(function(err, result) {
+//         if (err) throw err
+//         Manager = JSON.parse(JSON.stringify(result[0]));
+//         FullTime = JSON.parse(JSON.stringify(result[1]));
+//         PartTime = JSON.parse(JSON.stringify(result[2]));
+//         //待解決（雲端抓下來順序錯誤會導致報錯）
+//         AutoSchedule()
+//     })
 
-        Manager = JSON.parse(JSON.stringify(result[0]));
-        FullTime = JSON.parse(JSON.stringify(result[1]));
-        PartTime = JSON.parse(JSON.stringify(result[2]));
-        //待解決（雲端抓下來順序錯誤會導致報錯）
-        AutoSchedule()
-    })
 
-    dbSchedule.insertOne(Opt, function(err, res) {
-        if (err) throw err
-        console.log("新增成功!!")
-    })
-});
+//     dbSchedule.insertOne(Opt, function(err, res) {
+//         if (err) throw err
+//         console.log("新增成功!!")
+//     })
+// });
 
 //-------------------------------------------
 //Main Function
 
+function test() {
+    let api = "http://127.0.0.1:3000/memberAPI/autoSchedule"
+    $.get(api, function(data) {
+        Manager = data[0]
+        FullTime = data[1];
+        PartTime = data[2];
+        AutoSchedule();
+    });
+}
 
 function AutoSchedule() {
+
     //let IsWorking = true
     //$('#block_msg').fadeIn()
     //抓取月份第一天
@@ -209,6 +219,10 @@ function AutoSchedule() {
     for (let i = 1; i <= Object.keys(Opt).length - 8; i++) {
         console.log(i + "號:" + Opt[i])
     }
+    let api = "http://127.0.0.1:3000/memberAPI/_sendToDB"
+    $.get(api, Opt, function(data) {
+        alert("排班完成")
+    });
     //-------------------
     // var _sceduleContent = {title: 'D Jason',start: '2022-01-07'}
     // console.log(Calender);
