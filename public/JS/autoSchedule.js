@@ -156,6 +156,7 @@ function test() {
         FullTime = data[1];
         PartTime = data[2];
         AutoSchedule();
+        window.location.href = "http://127.0.0.1:3000/main/schedule"
     });
 }
 
