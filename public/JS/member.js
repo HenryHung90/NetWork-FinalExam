@@ -13,7 +13,6 @@ function addMember() {
             'name': Name,
             'fixedday': Rest
         }
-
         $.get(api, data, function(data, status) {
             alert("已填寫完成")
             $('#IDnum').val('');
