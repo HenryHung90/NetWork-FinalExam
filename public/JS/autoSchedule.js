@@ -189,12 +189,12 @@ function AutoSchedule() {
     IsFull()
 
     //輸出班表塞入人手不足以及全請日
-    Opt.ManagerError = ManagerError
-    Opt.FullTimeError = FullTimeError
-    Opt.PartTimeError = PartTimeError
-    Opt.ManagerhelfError = ManagerhelfError
-    Opt.FullTimehelfError = FullTimehelfError
-    Opt.PartTimehelfError = PartTimehelfError
+    //Opt.ManagerError = ManagerError
+    //Opt.FullTimeError = FullTimeError
+    //Opt.PartTimeError = PartTimeError
+    //Opt.ManagerhelfError = ManagerhelfError
+    //Opt.FullTimehelfError = FullTimehelfError
+    //Opt.PartTimehelfError = PartTimehelfError
 
     //Debug區域-----------
     // for (let i = 0; i < Manager_num; i++) {

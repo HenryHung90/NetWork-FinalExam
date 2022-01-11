@@ -1,4 +1,4 @@
-var _scheduleFinal = [] //存取所有scheduleContent的陣列
+var _scheduleFinal = new Array() //存取所有scheduleContent的陣列
 
 function _showOnSchedule() {
     let api = "http://127.0.0.1:3000/memberAPI/showSchedule"
@@ -11,14 +11,14 @@ function _showOnSchedule() {
 //檢查回傳data是否為空物件
 function isObjEmpty(obj) {
     for (var prop in obj) {
-        if (obj.hasOwnProperty(prop)) return true;
+        if (obj.hasOwnProperty(prop)) return false;
     }
-    return false;
+    return true;
 }
 
 function _arraySchedule(data) {
-    if (isObjEmpty(data)) {
-        for (let i = 1; i < Object.keys(data[0]).length - 4; i++) {
+    if (!isObjEmpty(data)) {
+        for (let i = 1; i < Object.keys(data[0]).length - 1; i++) {
             for (let j = 0; j < Object.keys(data[0][i]).length; j++) {
                 let _i = i
                 if (i < 10) _i = "0" + i;
