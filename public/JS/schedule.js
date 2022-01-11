@@ -3,9 +3,6 @@ var _scheduleFinal = [] //存取所有scheduleContent的陣列
 function _showOnSchedule() {
     let api = "http://127.0.0.1:3000/memberAPI/showSchedule"
     $.get(api, function(data) {
-        console.log(Object.keys(data[0]).length - 8);
-        console.log(data[0][1])
-        console.log(data[0][1][0])
         console.log("讀取完整班表成功");
         _arraySchedule(data);
     });
