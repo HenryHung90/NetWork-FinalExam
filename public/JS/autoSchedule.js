@@ -26,7 +26,7 @@ const Manager_num = 2
     //正職
 const Full_num = 4
     //兼職
-const Part_num = 7
+const Part_num = 6
     //總人數
 const All_num = Manager_num + Full_num + Part_num
     //------------------------------------
@@ -127,11 +127,12 @@ const url =
 
 MongoClient.connect(url, function(err, client) {
     //Main Function
-    const dbMember = client.db('Network').collection('Number')
+    const dbMember = client.db('Network').collection('Member')
     const dbSchedule = client.db('Network').collection('Schedule')
 
     dbMember.find({}).toArray(function(err, result) {
         if (err) throw err
+
         Manager = JSON.parse(JSON.stringify(result[0]));
         FullTime = JSON.parse(JSON.stringify(result[1]));
         PartTime = JSON.parse(JSON.stringify(result[2]));
@@ -193,10 +194,10 @@ function AutoSchedule() {
     //   console.log(FullTime.Name[i] + " 上班:" + FullTime.WorkDay[i])
     //   console.log(FullTime.Name[i] + " 排休:" + FullTime.FlexiableDay[i])
     // }
-    for (let i = 0; i < Part_num; i++) {
-        console.log(PartTime.Name[i] + " 上班:" + PartTime.WorkDay[i])
-        console.log(PartTime.Name[i] + " 排休:" + PartTime.FlexiableDay[i])
-    }
+    // for (let i = 0; i < Part_num; i++) {
+    //     console.log(PartTime.Name[i] + " 上班:" + PartTime.WorkDay[i])
+    //     console.log(PartTime.Name[i] + " 排休:" + PartTime.FlexiableDay[i])
+    // }
     // console.log("Manager人手不足日:" + ManagerhelfError);
     // console.log("FullTime人手不足日:" + FullTimehelfError);
     // console.log("PartTime人手不足日:" + PartTimehelfError);
@@ -205,12 +206,12 @@ function AutoSchedule() {
     // console.log("FullTime全請日:" + FullTimeError)
     // console.log("PartTime全請日:" + PartTimeError)
 
-    // for (let i = 1; i <= Object.keys(Opt).length - 8; i++) {
-    //     console.log(i + "號:" + Opt[i])
-    // }
+    for (let i = 1; i <= Object.keys(Opt).length - 8; i++) {
+        console.log(i + "號:" + Opt[i])
+    }
     //-------------------
     // var _sceduleContent = {title: 'D Jason',start: '2022-01-07'}
-    //console.log(Calender);
+    // console.log(Calender);
     //if(!IsWorking) $('#block_msg').fadeOut()
 }
 //--------------------------------------------
@@ -597,7 +598,7 @@ function IsSchedule(PersonWorkDay, Day) {
 //--------------------------------------------
 //liitle function
 function IsWeekend(Day) {
-    if (Calender[Day] == 'Sat' || Calender[Day] == 'Sun') return true
+    if (Calender[Day - 1] == 'Sat' || Calender[Day - 1] == 'Sun') return true
     return false
 }
 //math function
