@@ -25,7 +25,7 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 //密碼加密----------------
 //是否已登入(用於導引)
-var IsLogin = false
+var IsLogin = true
 const bcrypt = require('bcrypt')
 const saltRounds = 10 //整數型態，數值越高越安全
     //暫存密碼 密碼原型:Hungdodo0427
